@@ -1,0 +1,13 @@
+.scrollablePage {
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+}
+
+.container {
+    max-width: 52rem;
+    padding: 2rem 1rem;
+    margin: 0rem auto;
+    min-height: calc(100vh - 15rem);
+}
