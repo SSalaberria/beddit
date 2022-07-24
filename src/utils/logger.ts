@@ -18,6 +18,7 @@ prefix.reg(log);
 
 prefix.apply(log, {
     format(level, name, timestamp) {
+        // @ts-ignore
         return `${chalk.gray(`[${timestamp}]`)} ${colors[level.toUpperCase()](
             level,
         )} ${chalk.green(`${name}:`)}`;
