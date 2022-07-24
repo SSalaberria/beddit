@@ -14,7 +14,9 @@ type PageParams = {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const subedditsData = await fetchSubeddits();
+    const subedditsData = await fetchSubeddits().catch(err => ({
+        subeddits: [],
+    }));
 
     const paths = subedditsData.subeddits.map(subeddit => ({
         params: { subeddit: subeddit.name },
@@ -38,7 +40,18 @@ export const getStaticProps: GetStaticProps = async context => {
         };
     }
 
-    const subeddit = await fetchSubedditData({ name });
+    const subeddit = await fetchSubedditData({ name }).catch(err => {
+        console.log(err);
+    });
+
+    if (!subeddit) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            },
+        };
+    }
 
     return {
         props: {
