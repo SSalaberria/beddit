@@ -26,7 +26,7 @@ const fetchPosts = async (
         perPage: 5,
     },
 ): Promise<PostsResponse> => {
-    return httpClient.get('/posts', { params }).then(res => res.data);
+    return httpClient.get('/post', { params }).then(res => res.data);
 };
 
 export const useAddPostMutation = (params?: PostsParams) => {
@@ -43,7 +43,7 @@ export const useAddPostMutation = (params?: PostsParams) => {
             subeddit: string;
         }) =>
             httpClient
-                .post('/posts', { title, content, subeddit })
+                .post('/post', { title, content, subedditName: subeddit })
                 .then(res => res.data),
         {
             onSuccess: (newPost: Post) => {

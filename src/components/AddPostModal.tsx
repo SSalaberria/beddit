@@ -50,7 +50,7 @@ const AddPostModal = ({ onClose, onSubmitPost }: Props) => {
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                     placeholder="Today I saw something amazing!"
                                     minLength={4}
-                                    maxLength={64}
+                                    maxLength={255}
                                     required
                                 />
                             </div>
@@ -68,7 +68,7 @@ const AddPostModal = ({ onClose, onSubmitPost }: Props) => {
                                     placeholder="There was this huge tree..."
                                     rows={10}
                                     minLength={12}
-                                    maxLength={1024}
+                                    maxLength={4094}
                                     required
                                 />
                             </div>

@@ -13,6 +13,19 @@ export interface Post {
     authorId: string;
     createdAt: string;
     updatedAt: string;
+    subeddit: {
+        id: string;
+        name: string;
+    };
+}
+
+export interface Subeddit {
+    id: string;
+    name: string;
+    description: string;
+    createdAt: string;
+    updatedAt: string;
+    Posts?: Post[];
 }
 
 export interface SubmitPostData {

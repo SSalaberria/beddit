@@ -1,3 +1,4 @@
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Home from '../..';
@@ -5,11 +6,54 @@ import AddPostModal from '../../../components/AddPostModal';
 import Layout from '../../../components/layout/Layout';
 import PostsFeed from '../../../components/PostsFeed';
 import { useAddPostMutation } from '../../../hooks/usePosts';
+import { fetchSubedditData, fetchSubeddits } from '../../../utils/requests';
+import { Subeddit } from '../../../utils/ts/interfaces';
 
-const SubedditPage = () => {
-    const { query } = useRouter();
+type PageParams = {
+    subeddit?: string;
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+    const subedditsData = await fetchSubeddits();
+
+    const paths = subedditsData.subeddits.map(subeddit => ({
+        params: { subeddit: subeddit.name },
+    }));
+
+    return {
+        paths,
+        fallback: false,
+    };
+};
+
+export const getStaticProps: GetStaticProps = async context => {
+    const { subeddit: name } = context.params as PageParams;
+
+    if (!name) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            },
+        };
+    }
+
+    const subeddit = await fetchSubedditData({ name });
+
+    return {
+        props: {
+            subeddit,
+        },
+    };
+};
+
+type Props = {
+    subeddit: Subeddit;
+};
+
+const SubedditPage = ({ subeddit }: Props) => {
     const addPostMutation = useAddPostMutation({
-        subeddit: String(query.subeddit),
+        subeddit: subeddit.name,
     });
     const [showAddPostModal, setShowAddPostModal] = useState(false);
 
@@ -17,10 +61,10 @@ const SubedditPage = () => {
         title: string;
         content: string;
     }) => {
-        if (query.subeddit) {
+        if (subeddit) {
             addPostMutation.mutate({
                 ...data,
-                subeddit: String(query.subeddit),
+                subeddit: subeddit.name,
             });
         }
 
@@ -37,18 +81,22 @@ const SubedditPage = () => {
                     />
                 )}
 
-                <h2 className="text-[3rem] lg:text-[5rem] md:text-[5rem] font-extrabold text">
-                    Bed<span className="text-purple-300">dit</span>
+                <h2 className="flex text-[3rem] lg:text-[5rem] md:text-[5rem] font-extrabold text">
+                    <span className="hidden sm:block">
+                        Bed<span className="text-purple-300">dit</span>
+                    </span>
+
+                    {subeddit && (
+                        <span className="text-gray-600">/{subeddit.name}</span>
+                    )}
                 </h2>
 
                 <button onClick={() => setShowAddPostModal(true)}>
                     Create Post
                 </button>
-
-                <p className="text-2xl text">Posts</p>
             </div>
             <div className="grid grid-cols-1 gap-3 mt-3 pt-3 w-full lg:w-2/3 md:w-full mx-auto">
-                <PostsFeed />
+                <PostsFeed subeddit={subeddit.name} />
             </div>
         </Layout>
     );

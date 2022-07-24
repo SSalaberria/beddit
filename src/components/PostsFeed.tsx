@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useCallback, useRef, useState } from 'react';
 import AddPostModal from '../components/AddPostModal';
 import { useAddPostMutation, usePosts } from '../hooks/usePosts';
@@ -29,29 +30,30 @@ const PostsFeed = ({ subeddit }: Props) => {
         [isFetching, hasNextPage],
     );
 
-    console.log(data?.pages);
-
     return (
         <>
             {data?.pages
                 .flatMap(pageData => pageData.posts)
                 .map(post => (
                     <div
-                        className="hover:scale-105 cursor-pointer duration-500 flex flex-col justify-center items-center text-center rounded shadow-xl border-2 border-gray-500 h-full w-full p-6"
+                        className="relative hover:scale-105 cursor-pointer duration-500 flex flex-col justify-center items-center text-center rounded shadow-xl border-2 border-gray-500 h-full w-full p-6 pt-10"
                         key={post.id}
                     >
+                        <span className="text text-right absolute top-2 right-6 text-gray-600 dark:text-gray-500 font-bold">
+                            /{post.subeddit.name}
+                        </span>
                         <h2 className="text-lg ">{post.title}</h2>
 
                         <p className="text-sm ">{post.content}</p>
 
-                        <a
-                            className="text-sm  underline decoration-dotted underline-offset-2 cursor-pointer mt-3"
-                            href="https://nextjs.org/"
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            See comments
-                        </a>
+                        <Link href={`/b/${subeddit}/comments/${post.id}`}>
+                            <a
+                                className="text-sm  underline decoration-dotted underline-offset-2 cursor-pointer mt-3"
+                                rel="noreferrer"
+                            >
+                                See comments
+                            </a>
+                        </Link>
 
                         <p className="text-sm text-right  ml-auto">
                             Made by {post.author.name}
