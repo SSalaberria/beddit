@@ -104,7 +104,10 @@ const SubedditPage = ({ subeddit }: Props) => {
                     )}
                 </h2>
 
-                <button onClick={() => setShowAddPostModal(true)}>
+                <button
+                    className="btn-primary"
+                    onClick={() => setShowAddPostModal(true)}
+                >
                     Create Post
                 </button>
             </div>

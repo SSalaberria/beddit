@@ -21,7 +21,7 @@ const AddPostModal = ({ onClose, onSubmitPost }: Props) => {
 
     return (
         <div
-            className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full"
+            className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto z-10 h-full w-full"
             id="my-modal"
             onClick={onClose}
         >
@@ -82,7 +82,10 @@ const AddPostModal = ({ onClose, onSubmitPost }: Props) => {
                             >
                                 Cancel
                             </button>
-                            <button type="submit" className="w-full sm:w-auto">
+                            <button
+                                type="submit"
+                                className="btn-primary w-full sm:w-auto"
+                            >
                                 Create
                             </button>
                         </div>

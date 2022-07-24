@@ -94,12 +94,7 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse) {
     const { page, perPage, subedditName }: GetRequest = req.query;
 
     const posts = await prisma.post.findMany({
-        select: {
-            id: true,
-            title: true,
-            content: true,
-            createdAt: true,
-            updatedAt: true,
+        include: {
             author: {
                 select: {
                     id: true,
@@ -110,6 +105,11 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse) {
                 select: {
                     id: true,
                     name: true,
+                },
+            },
+            _count: {
+                select: {
+                    comments: true,
                 },
             },
         },

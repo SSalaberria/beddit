@@ -17,6 +17,25 @@ export interface Post {
         id: string;
         name: string;
     };
+    comments: Comment[];
+    commentsDepth: number;
+    _count: {
+        comments: number;
+    };
+}
+
+export interface Comment {
+    id: string;
+    content: string;
+    author: User;
+    authorId: string;
+    post: Post;
+    postId: string;
+    parent?: Comment;
+    parentId?: string;
+    createdAt: string;
+    updatedAt: string;
+    children: Comment[];
 }
 
 export interface Subeddit {

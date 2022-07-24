@@ -32,6 +32,9 @@ datasource db {
 // MODEL FIELD TYPES:
 //  Scalar types: String, Boolean, Int, BigInt, Float, Decimal, DateTime, Json, Bytes
 //  Relation types: Model
+
+// REMINDER: due to PlanetScale not supporting foreign key constraints, we need to emulate referential integrity. Every foreign key needs to be indexed to make queries fast enough.
+
 model Subeddit {
     id          String   @id @default(cuid())
     name        String   @unique
@@ -41,21 +44,37 @@ model Subeddit {
     posts       Post[]
 }
 
-// REMINDER: due to PlanetScale not supporting foreign key constraints, we need to emulate referential integrity. Every foreign key needs to be indexed to make queries fast enough.
-
 model Post {
-    id         Int      @id @default(autoincrement())
-    title      String   @db.VarChar(255)
-    content    String   @db.LongText
-    author     User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
-    authorId   String
-    createdAt  DateTime @default(now())
-    updatedAt  DateTime @updatedAt
-    subeddit   Subeddit @relation(fields: [subedditId], references: [id])
-    subedditId String
+    id            Int       @id @default(autoincrement())
+    title         String    @db.VarChar(255)
+    content       String    @db.LongText
+    author        User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+    authorId      String
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
+    subeddit      Subeddit  @relation(fields: [subedditId], references: [id])
+    subedditId    String
+    comments      Comment[]
+    commentsDepth Int       @default(0)
 
     @@index(fields: [title])
     @@index([subedditId, authorId])
+}
+
+model Comment {
+    id        String    @id @default(cuid())
+    content   String    @db.Text
+    author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+    authorId  String
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    post      Post      @relation(fields: [postId], references: [id])
+    postId    Int
+    parent    Comment?  @relation("CommentTree", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+    parentId  String?
+    children  Comment[] @relation("CommentTree")
+
+    @@index([postId, authorId, parentId])
 }
 
 // Necessary for Next auth
@@ -100,6 +119,7 @@ model User {
     Post          Post[]
     createdAt     DateTime  @default(now())
     updatedAt     DateTime  @updatedAt
+    Comment       Comment[]
 }
 
 model VerificationToken {
