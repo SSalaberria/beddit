@@ -1,0 +1,154 @@
+{
+    "users": [
+        {
+            "email": "test41345135@gmail.com",
+            "password": "123123123",
+            "name": "NosyFox"
+        },
+        {
+            "email": "test41345135123@gmail.com",
+            "password": "123123123",
+            "name": "KindheartedlyGargantuan"
+        },
+        {
+            "email": "test41345324135@gmail.com",
+            "password": "123123123",
+            "name": "SmilingStairway"
+        },
+        {
+            "email": "test41345235135@gmail.com",
+            "password": "123123123",
+            "name": "thin_withholding"
+        },
+        {
+            "email": "test41333245135@gmail.com",
+            "password": "123123123",
+            "name": "kindly_angry_authority"
+        },
+        {
+            "email": "test413535345135@gmail.com",
+            "password": "123123123",
+            "name": "packed_browsing"
+        }
+    ],
+    "subeddits": [
+        {
+            "name": "askbeddit",
+            "description": "Ask your question on the beddit community",
+            "posts": [
+                {
+                    "title": "What did you falsely believe as a kid?",
+                    "content": "I want to make a beddit. How do I do that?"
+                },
+                {
+                    "title": "What have you slowly lost all respect for?",
+                    "content": "I want to make a beddit. How do I do that?"
+                },
+                {
+                    "title": "What did you mispronounce for an embarrassingly large portion of your life?",
+                    "content": "I want to make a beddit. How do I do that?"
+                },
+                {
+                    "title": "What are some things American people do that instantly tell you that they're American?",
+                    "content": "I want to make a beddit. How do I do that?"
+                },
+                {
+                    "title": "Which movie has the best soundtrack that you can’t get enough of?",
+                    "content": "I want to make a beddit. How do I do that?"
+                },
+                {
+                    "title": "What was your favorite MTV show from back in the day?",
+                    "content": "I want to make a beddit. How do I do that?"
+                },
+                {
+                    "title": "What's a subscription that you're happy to renew?",
+                    "content": "I want to make a beddit. How do I do that?"
+                },
+                {
+                    "title": "If life had “loading screen tips”, what would they be?",
+                    "content": "I want to make a beddit. How do I do that?"
+                },
+                {
+                    "title": "Whats an unwritten rule in a Public Restroom?",
+                    "content": "I want to make a beddit. How do I do that?"
+                },
+                {
+                    "title": "What is the worst Gatorade flavor?",
+                    "content": "I want to make a beddit. How do I do that?"
+                },
+                {
+                    "title": "What movie left you with an unsettling feeling for years to come?",
+                    "content": "I want to make a beddit. How do I do that?"
+                },
+                {
+                    "title": "Being as stereotypic as possible, what country are you from?",
+                    "content": "I want to make a beddit. How do I do that?"
+                },
+                {
+                    "title": "What food reminds you of school years?",
+                    "content": "I want to make a beddit. How do I do that?"
+                }
+            ]
+        },
+        {
+            "name": "art",
+            "description": "Share your art with the world",
+            "posts": [
+                {
+                    "title": "Share your art with the world",
+                    "content": "I want to make a beddit. How do I do that?"
+                }
+            ]
+        },
+        {
+            "name": "videos",
+            "description": "A video is worth a thousand words, share yours!",
+            "posts": [
+                {
+                    "title": "A video is worth a thousand words, share yours!",
+                    "content": "I want to make a beddit. How do I do that?"
+                }
+            ]
+        },
+        {
+            "name": "dataisbeautiful",
+            "description": "A place to share and discuss visual representations of data",
+            "posts": [
+                {
+                    "title": "A place to share and discuss visual representations of data",
+                    "content": "I want to make a beddit. How do I do that?"
+                }
+            ]
+        },
+        {
+            "name": "fitness",
+            "description": "Let's get fit together!",
+            "posts": [
+                {
+                    "title": "Let's get fit together!",
+                    "content": "I want to make a beddit. How do I do that?"
+                }
+            ]
+        },
+        {
+            "name": "pcgaming",
+            "description": "The latest news about PC gaming",
+            "posts": [
+                {
+                    "title": "The latest news about PC gaming",
+                    "content": "I want to make a beddit. How do I do that?"
+                }
+            ]
+        },
+        {
+            "name": "history",
+            "description": "Let's talk about stuff from the past",
+            "posts": [
+                {
+                    "title": "Let's talk about stuff from the past",
+                    "content": "I want to make a beddit. How do I do that?"
+                }
+            ]
+        }
+    ]
+}

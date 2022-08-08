@@ -21,7 +21,7 @@ const AddPostModal = ({ onClose, onSubmitPost }: Props) => {
 
     return (
         <div
-            className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto z-10 h-full w-full"
+            className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto z-10 h-full w-full transition-all duration-300"
             id="my-modal"
             onClick={onClose}
         >
@@ -47,7 +47,7 @@ const AddPostModal = ({ onClose, onSubmitPost }: Props) => {
                                 <input
                                     name="title"
                                     id="title"
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white "
                                     placeholder="Today I saw something amazing!"
                                     minLength={4}
                                     maxLength={255}
@@ -64,7 +64,7 @@ const AddPostModal = ({ onClose, onSubmitPost }: Props) => {
                                 <textarea
                                     name="content"
                                     id="content"
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white hover:border-slate-400 dark:hover:border-slate-100"
                                     placeholder="There was this huge tree..."
                                     rows={10}
                                     minLength={12}

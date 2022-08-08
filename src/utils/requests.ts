@@ -17,6 +17,9 @@ export const fetchSubedditData = async ({
     return httpClient.get(`/subeddit/${name}`).then(res => res.data);
 };
 
-export const fetchPost = async ({ id }: { id: number }): Promise<Post> => {
-    return httpClient.get(`/post/${id}`).then(res => res.data);
+export const fetchPost = async (
+    { id }: { id: number },
+    headers: {},
+): Promise<Post> => {
+    return httpClient.get(`/post/${id}`, { headers }).then(res => res.data);
 };

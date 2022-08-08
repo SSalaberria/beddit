@@ -2,7 +2,9 @@ import { GetServerSideProps } from 'next';
 import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useCallback } from 'react';
+import { VoteOption } from 'src/utils/ts/types';
 import Comment from '../../../../components/Comment';
 import CommentForm from '../../../../components/CommentForm';
 import Layout from '../../../../components/layout/Layout';
@@ -13,7 +15,11 @@ import { Post } from '../../../../utils/ts/interfaces';
 
 export const getServerSideProps: GetServerSideProps = async context => {
     const { postId, subeddit } = context.query;
-    const post = await fetchPost({ id: Number(postId) }).catch(err => {
+
+    const post = await fetchPost(
+        { id: Number(postId) },
+        { Cookie: context.req.headers.cookie },
+    ).catch(err => {
         console.error(err);
     });
 
@@ -34,6 +40,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
 };
 
 const PostDetails = ({ post }: { post: Post }) => {
+    console.log(post);
     const { data: session } = useSession();
 
     const handleCommentSave = (formData: {
@@ -46,6 +53,23 @@ const PostDetails = ({ post }: { post: Post }) => {
             .then(() => window.location.reload());
     };
 
+    const handleCommentVote = useCallback(
+        ({
+            commentId,
+            voteType,
+        }: {
+            commentId: string;
+            voteType: VoteOption;
+        }) => {
+            httpClient
+                .post(`/post/${post.id}/comment/${commentId}/vote`, {
+                    voteType,
+                })
+                .then(() => window.location.reload());
+        },
+        [],
+    );
+
     const handleCommentSubmit = useCallback(handleCommentSave, [post]);
 
     return (
@@ -56,7 +80,17 @@ const PostDetails = ({ post }: { post: Post }) => {
                 <meta property="og:title" content={post.title} />
                 <meta property="og:description" content={post.title} />
             </Head>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 ">
+                <div className="flex justify-center -mt-4">
+                    <Link href={`/b/${post.subeddit.name}`}>
+                        <a>
+                            <h3 className="text-[2rem] lg:text-[1rem] md:text-[1.5rem] font-bold clickable">
+                                /{post.subeddit.name}
+                            </h3>
+                        </a>
+                    </Link>
+                </div>
+
                 <div className="flex flex-col sm:flex-row items-center gap-4">
                     <div className="flex justify-center items-center w-64">
                         <Image
@@ -65,8 +99,8 @@ const PostDetails = ({ post }: { post: Post }) => {
                             height={64}
                         />
                     </div>
-                    <div>
-                        <h2 className=" text-[1.5rem] md:text-[2rem]">
+                    <div className="text-center sm:text-left">
+                        <h2 className=" text-[1.5rem] md:text-[1.8rem]">
                             {post.title}
                         </h2>
                         <div>
@@ -110,6 +144,7 @@ const PostDetails = ({ post }: { post: Post }) => {
                         <Comment
                             comment={comment}
                             onSaveComment={handleCommentSubmit}
+                            onVote={handleCommentVote}
                             depth={0}
                             key={comment.id}
                         />

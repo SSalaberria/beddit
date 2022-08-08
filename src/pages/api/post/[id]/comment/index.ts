@@ -44,20 +44,13 @@ const handlePOST = async (
         });
     }
 
-    const [author, post] = await Promise.all([
-        prisma.user.findUnique({
-            where: {
-                email: session?.user?.email || '',
-            },
-        }),
-        prisma.post.findUnique({
-            where: {
-                id: Number(postId),
-            },
-        }),
-    ]);
+    const post = await prisma.post.findUnique({
+        where: {
+            id: Number(postId),
+        },
+    });
 
-    if (!author || !post) {
+    if (!post) {
         return res.status(401).json({
             message: 'Unauthorized',
         });
@@ -74,7 +67,7 @@ const handlePOST = async (
             data: {
                 content,
                 parentId: parentId,
-                authorId: String(author.id),
+                authorId: String(session.user.id),
                 postId: Number(postId),
             },
         }),

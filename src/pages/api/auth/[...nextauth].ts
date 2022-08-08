@@ -1,4 +1,4 @@
-import NextAuth, { type NextAuthOptions } from 'next-auth';
+import NextAuth, { Awaitable, type NextAuthOptions } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
@@ -9,7 +9,6 @@ import httpClient from '../../../utils/http';
 import { logger } from '../../../utils/logger';
 
 export const authOptions: NextAuthOptions = {
-    // Configure one or more authentication providers
     adapter: PrismaAdapter(prisma),
     session: {
         strategy: 'jwt',
@@ -62,6 +61,21 @@ export const authOptions: NextAuthOptions = {
         },
         debug: (code, metadata) => {
             logger.debug(code, metadata);
+        },
+    },
+    callbacks: {
+        session: async ({ session, token }) => {
+            if (session?.user) {
+                // @ts-ignore
+                session.user.id = token.uid;
+            }
+            return session;
+        },
+        jwt: async ({ user, token }) => {
+            if (user) {
+                token.uid = user.id;
+            }
+            return token;
         },
     },
     secret: process.env.NEXT_PUBLIC_AUTH_SECRET,

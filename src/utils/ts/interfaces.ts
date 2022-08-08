@@ -1,3 +1,4 @@
+import { VoteOption } from 'src/utils/ts/types';
 export interface User {
     id: string;
     name: string;
@@ -6,7 +7,7 @@ export interface User {
 }
 
 export interface Post {
-    id: string;
+    id: number;
     title: string;
     content: string;
     author: User;
@@ -19,8 +20,11 @@ export interface Post {
     };
     comments: Comment[];
     commentsDepth: number;
+    votes?: Vote[];
     _count: {
         comments: number;
+        votes: number;
+        votesSum: number;
     };
 }
 
@@ -36,6 +40,9 @@ export interface Comment {
     createdAt: string;
     updatedAt: string;
     children: Comment[];
+    votes?: Vote[];
+    userVote: Vote | null;
+    voteCount: number;
 }
 
 export interface Subeddit {
@@ -45,6 +52,12 @@ export interface Subeddit {
     createdAt: string;
     updatedAt: string;
     Posts?: Post[];
+}
+
+export interface Vote {
+    id: string;
+    authorId: string;
+    voteType: VoteOption;
 }
 
 export interface SubmitPostData {

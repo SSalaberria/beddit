@@ -15,10 +15,12 @@ This is an app bootstrapped by `npx create-t3-app@latest` according to the [init
 
 ✔️ Basic Post CRUD.
 
-❌ Subeddits
+✔️ Subeddits
 
-❌ Comments
+✔️ Comments
+
+✔️ Post/Comments voting system
+
+❌ Different types of post: text, video, image.
 
 ❌ Moderating system
-
-❌ Voting

@@ -1,7 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
-import Home from '../..';
 import AddPostModal from '../../../components/AddPostModal';
 import Layout from '../../../components/layout/Layout';
 import PostsFeed from '../../../components/PostsFeed';
@@ -86,7 +84,7 @@ const SubedditPage = ({ subeddit }: Props) => {
 
     return (
         <Layout>
-            <div className="flex flex-col justify-center items-center">
+            <div className="flex flex-col justify-center items-center gap-4">
                 {showAddPostModal && (
                     <AddPostModal
                         onSubmitPost={handleSubmitPost}
@@ -94,15 +92,15 @@ const SubedditPage = ({ subeddit }: Props) => {
                     />
                 )}
 
-                <h2 className="flex text-[3rem] lg:text-[5rem] md:text-[5rem] font-extrabold text">
+                <h2 className="flex text-[3rem] lg:text-[4rem] md:text-[5rem] font-extrabold flex-wrap justify-center">
                     <span className="hidden sm:block">
                         Bed<span className="text-purple-300">dit</span>
                     </span>
 
-                    {subeddit && (
-                        <span className="text-gray-600">/{subeddit.name}</span>
-                    )}
+                    <span className="text-gray-600">/{subeddit.name}</span>
                 </h2>
+
+                <h3 className="font-semibold">{subeddit.description}</h3>
 
                 <button
                     className="btn-primary"

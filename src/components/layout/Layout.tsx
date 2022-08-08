@@ -4,6 +4,8 @@ import { ThemeOption } from '../../utils/ts/types';
 import Toggle from '../Toggle';
 import styles from './layout.module.css';
 import Navbar from './Navbar';
+import pinnedSubeddits from 'src/utils/data/pinned-subeddits.json';
+import Link from 'next/link';
 
 type LayoutProps = {
     children: React.ReactNode;
@@ -33,9 +35,23 @@ const Layout = ({ children }: LayoutProps) => {
         <div className={styles.scrollablePage && 'dark:bg-gray-900'}>
             <Head>
                 <title>Beddit</title>
-                <meta name="description" content="Beddit." />
+                <meta
+                    name="description"
+                    content="Beddit, a place to share news and opinions on different topics."
+                />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+            <div className="flex justify-center pt-2 gap-4">
+                {pinnedSubeddits.map(sub => (
+                    <Link href={`/b/${sub}`} key={sub}>
+                        <a>
+                            <p key={sub} className="font-bold clickable">
+                                {sub}
+                            </p>
+                        </a>
+                    </Link>
+                ))}
+            </div>
             <main className={styles.container}>
                 <div className="absolute right-4 top-4">
                     <Toggle value={theme} onChange={toggleTheme} />
@@ -45,7 +61,9 @@ const Layout = ({ children }: LayoutProps) => {
                 </div>
                 {children}
             </main>
-            <footer className="flex justify-center h-60 ">Footer</footer>
+            <footer className="flex justify-center h-60 ">
+                Made with ❤️ by Sebastián Salaberría
+            </footer>
         </div>
     );
 };

@@ -1,3 +1,4 @@
+import { VoteOption } from 'src/utils/ts/types';
 import type { InfiniteData } from 'react-query';
 import {
     useInfiniteQuery,
@@ -60,6 +61,7 @@ export const useAddPostMutation = (params?: PostsParams) => {
                                     ? [newPost, ...page.posts]
                                     : page.posts,
                         }));
+
                         return {
                             ...prevData,
                             pages: modifiedPages,
@@ -69,6 +71,114 @@ export const useAddPostMutation = (params?: PostsParams) => {
             },
         },
     );
+};
+
+export const usePostVoteMutation = (params?: PostsParams) => {
+    const queryClient = useQueryClient();
+    const queryKey = ['posts', params || {}];
+
+    const voteMutation = useMutation(
+        ({ postId, voteType }: { postId: number; voteType: VoteOption }) =>
+            httpClient
+                .post(`/post/${postId}/vote`, { voteType })
+                .then(res => res.data),
+        {
+            onMutate: variables => {
+                const { postId, voteType } = variables;
+                queryClient.setQueryData<InfiniteData<PostsResponse>>(
+                    queryKey,
+                    // @ts-ignore
+                    prevData => {
+                        const modifiedPages = prevData?.pages.map(page => {
+                            const modifiedPosts = page.posts.map(post => {
+                                if (post.id === postId) {
+                                    const isPostVoted = Boolean(
+                                        post.votes?.length,
+                                    );
+                                    let voteDifferenceMagnitude = isPostVoted
+                                        ? 2
+                                        : 1;
+
+                                    return {
+                                        ...post,
+                                        votes: [
+                                            {
+                                                voteType,
+                                            },
+                                        ],
+                                        _count: {
+                                            ...post._count,
+                                            votesSum:
+                                                post._count.votesSum +
+                                                (voteType === 1
+                                                    ? voteDifferenceMagnitude
+                                                    : -voteDifferenceMagnitude),
+                                        },
+                                    };
+                                }
+                                return post;
+                            });
+                            return {
+                                ...page,
+                                posts: modifiedPosts,
+                            };
+                        });
+
+                        return {
+                            ...prevData,
+                            pages: modifiedPages,
+                        };
+                    },
+                );
+            },
+        },
+    );
+
+    const deleteVoteMutation = useMutation(
+        ({ postId }: { postId: number }) =>
+            httpClient.delete(`/post/${postId}/vote`),
+        {
+            onMutate: variables => {
+                const { postId } = variables;
+                queryClient.setQueryData<InfiniteData<PostsResponse>>(
+                    queryKey,
+                    // @ts-ignore
+                    prevData => {
+                        const modifiedPages = prevData?.pages.map(page => {
+                            const modifiedPosts = page.posts.map(post => {
+                                if (post.id === postId && post.votes?.length) {
+                                    return {
+                                        ...post,
+                                        votes: [],
+                                        _count: {
+                                            ...post._count,
+                                            votesSum:
+                                                post._count.votesSum +
+                                                (post?.votes[0]?.voteType === 1
+                                                    ? -1
+                                                    : 1),
+                                        },
+                                    };
+                                }
+                                return post;
+                            });
+                            return {
+                                ...page,
+                                posts: modifiedPosts,
+                            };
+                        });
+
+                        return {
+                            ...prevData,
+                            pages: modifiedPages,
+                        };
+                    },
+                );
+            },
+        },
+    );
+
+    return { voteMutation, deleteVoteMutation };
 };
 
 export const usePosts = (params: PostsParams) => {

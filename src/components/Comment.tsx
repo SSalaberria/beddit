@@ -3,6 +3,8 @@ import { Comment } from '../utils/ts/interfaces';
 import CommentForm from './CommentForm';
 import { UserCircleIcon } from '@heroicons/react/outline';
 import { formatDate } from '../utils/date';
+import Voting from './Voting';
+import { VoteOption } from 'src/utils/ts/types';
 
 interface Props {
     comment: Comment;
@@ -13,18 +15,20 @@ interface Props {
         depth: number;
         parentId?: string;
     }) => void;
+    onVote: (voteData: { commentId: string; voteType: VoteOption }) => void;
 }
 
-const Comment = ({ comment, parent, onSaveComment, depth }: Props) => {
+const Comment = ({ comment, parent, onSaveComment, onVote, depth }: Props) => {
     const [showReplyForm, setShowReplyForm] = useState(false);
+    const evenDepth = depth % 2 === 0;
+
+    console.log(comment);
 
     return (
         <div
-            className={`flex flex-col bg-slate-${
-                depth % 2 ? 200 : 100
-            } border-gray-200 dark:bg-slate-${
-                depth % 2 ? 700 : 800
-            } dark:border-gray-600 border rounded p-3 my-2 gap-2`}
+            className={`flex flex-col bg-slate-100 border-gray-200 dark:bg-slate-800 dark:border-gray-600 border rounded p-3 my-2 gap-2 ${
+                evenDepth ? 'comment-primary' : 'comment-secondary'
+            }`}
         >
             <div className="flex items-center gap-2">
                 <UserCircleIcon className="h-8" />
@@ -37,8 +41,19 @@ const Comment = ({ comment, parent, onSaveComment, depth }: Props) => {
                         })}
                     </p>
                 </div>
+                <div className="flex ml-auto">
+                    <Voting
+                        total={comment.voteCount}
+                        vote={comment?.userVote && comment?.userVote?.voteType}
+                        onVote={vote =>
+                            onVote({ commentId: comment.id, voteType: vote })
+                        }
+                        // TODO - add vote DELETE action
+                        onVoteDelete={() => console.log()}
+                    />
+                </div>
             </div>
-            <p className="">{comment.content}</p>
+            <p>{comment.content}</p>
             <div className="mt-2">
                 <div>
                     {showReplyForm && (
@@ -72,6 +87,7 @@ const Comment = ({ comment, parent, onSaveComment, depth }: Props) => {
                         comment={child}
                         parent={comment}
                         onSaveComment={onSaveComment}
+                        onVote={onVote}
                         depth={depth + 1}
                         key={child.id}
                     />

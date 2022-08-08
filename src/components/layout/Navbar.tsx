@@ -6,10 +6,10 @@ const Navbar = () => {
     const { data: session } = useSession();
 
     return (
-        <div className="w-full flex justify-between items-center">
+        <nav className="w-full flex justify-between items-center">
             <div className="flex">
                 <Link href="/">
-                    <a>
+                    <a className="flex items-center">
                         <Image
                             src="/images/bd-logo.svg"
                             width={32}
@@ -25,7 +25,7 @@ const Navbar = () => {
                     <button onClick={() => signIn()}>Sign in</button>
                 )}
             </div>
-        </div>
+        </nav>
     );
 };
 

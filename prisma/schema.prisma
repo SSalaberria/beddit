@@ -56,6 +56,7 @@ model Post {
     subedditId    String
     comments      Comment[]
     commentsDepth Int       @default(0)
+    votes         Vote[]
 
     @@index(fields: [title])
     @@index([subedditId, authorId])
@@ -73,8 +74,32 @@ model Comment {
     parent    Comment?  @relation("CommentTree", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
     parentId  String?
     children  Comment[] @relation("CommentTree")
+    votes     Vote[]
 
     @@index([postId, authorId, parentId])
+}
+
+model Vote {
+    id           String       @id @default(cuid())
+    author       User         @relation(fields: [authorId], references: [id], onDelete: Cascade)
+    authorId     String
+    createdAt    DateTime     @default(now())
+    updatedAt    DateTime     @updatedAt
+    post         Post?        @relation(fields: [postId], references: [id])
+    postId       Int?
+    comment      Comment?     @relation(fields: [commentId], references: [id])
+    commentId    String?
+    voteType     Int          @db.TinyInt
+    voteableType VoteableType
+
+    @@unique([authorId, postId], name: "authorId_postId")
+    @@unique([authorId, commentId], name: "authorId_commentId")
+    @@index([authorId, postId])
+}
+
+enum VoteableType {
+    Post
+    Comment
 }
 
 // Necessary for Next auth
@@ -120,6 +145,7 @@ model User {
     createdAt     DateTime  @default(now())
     updatedAt     DateTime  @updatedAt
     Comment       Comment[]
+    Vote          Vote[]
 }
 
 model VerificationToken {
