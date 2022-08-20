@@ -21,6 +21,6 @@ This is an app bootstrapped by `npx create-t3-app@latest` according to the [init
 
 ✔️ Post/Comments voting system
 
-❌ Different types of post: text, video, image.
+✔️ Different types of post: text, video, image.
 
 ❌ Moderating system
