@@ -3,7 +3,10 @@ import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
+import Voting from 'src/components/Voting';
+import { usePostVoteMutation } from 'src/hooks/usePosts';
+import { CONTENT_TYPES } from 'src/utils/consts';
 import { VoteOption } from 'src/utils/ts/types';
 import Comment from '../../../../components/Comment';
 import CommentForm from '../../../../components/CommentForm';
@@ -40,8 +43,15 @@ export const getServerSideProps: GetServerSideProps = async context => {
 };
 
 const PostDetails = ({ post }: { post: Post }) => {
-    console.log(post);
     const { data: session } = useSession();
+    const { voteMutation, deleteVoteMutation } = usePostVoteMutation({
+        subeddit: post.subeddit.name,
+    });
+    const [vote, setVote] = useState<VoteOption | null>(
+        // @ts-ignore
+        post?.votes?.length > 0 ? post?.votes[0]?.voteType : null,
+    );
+    const [votes, setVotes] = useState<number>(post._count.votesSum);
 
     const handleCommentSave = (formData: {
         content: string;
@@ -70,6 +80,23 @@ const PostDetails = ({ post }: { post: Post }) => {
         [],
     );
 
+    const handlePostVote = useCallback(
+        (voteSelected: VoteOption) => {
+            setVote(voteSelected);
+            setVotes(votes + (vote ? 2 : 1) * voteSelected);
+            voteMutation.mutate({ postId: post.id, voteType: voteSelected });
+        },
+        [vote, votes],
+    );
+
+    const handleDeletePostVote = useCallback(() => {
+        if (vote) {
+            setVote(null);
+            setVotes(votes - vote);
+            deleteVoteMutation.mutate({ postId: post.id });
+        }
+    }, [vote, votes]);
+
     const handleCommentSubmit = useCallback(handleCommentSave, [post]);
 
     return (
@@ -92,12 +119,42 @@ const PostDetails = ({ post }: { post: Post }) => {
                 </div>
 
                 <div className="flex flex-col sm:flex-row items-center gap-4">
-                    <div className="flex justify-center items-center w-64">
-                        <Image
-                            src="/images/bd-logo.svg"
-                            width={64}
-                            height={64}
-                        />
+                    <div
+                        className={`flex justify-center items-center ${
+                            post.contentType === CONTENT_TYPES.TEXT
+                                ? 'w-24'
+                                : 'w-64 h-64'
+                        }`}
+                    >
+                        {(post.contentType === CONTENT_TYPES.TEXT ||
+                            post.contentType === CONTENT_TYPES.IMAGE) && (
+                            <Image
+                                src={
+                                    post.contentType === CONTENT_TYPES.IMAGE
+                                        ? post.content
+                                        : '/images/bd-logo.svg'
+                                }
+                                width={256}
+                                height={256}
+                                {...(post.contentType ===
+                                    CONTENT_TYPES.IMAGE && {
+                                    objectFit: 'scale-down',
+                                })}
+                            />
+                        )}
+
+                        {post.contentType === CONTENT_TYPES.VIDEO && (
+                            <iframe
+                                width={240}
+                                height={190}
+                                src={post.content.replace(
+                                    '/watch?v=',
+                                    '/embed/',
+                                )}
+                                allowFullScreen
+                                frameBorder="0"
+                            ></iframe>
+                        )}
                     </div>
                     <div className="text-center sm:text-left">
                         <h2 className=" text-[1.5rem] md:text-[1.8rem]">
@@ -120,13 +177,24 @@ const PostDetails = ({ post }: { post: Post }) => {
                                     ?.scrollIntoView()
                             }
                         >
-                            {post._count.comments} comments
+                            {post._count.comments} comment
+                            {post._count.comments !== 1 && 's'}
                         </p>
                     </div>
+                    <div className="flex ml-auto">
+                        <Voting
+                            total={votes}
+                            vote={vote}
+                            onVote={handlePostVote}
+                            onVoteDelete={handleDeletePostVote}
+                        />
+                    </div>
                 </div>
-                <div className="border rounded-md p-2 bg-slate-100 dark:bg-slate-800">
-                    <p className="">{post.content}</p>
-                </div>
+                {post.contentType === CONTENT_TYPES.TEXT && (
+                    <div className="border rounded-md p-2 bg-slate-100 dark:bg-slate-800">
+                        <p className="">{post.content}</p>
+                    </div>
+                )}
                 <div className="flex flex-col">
                     <p className="text-[1.5rem]">Comments</p>
                 </div>

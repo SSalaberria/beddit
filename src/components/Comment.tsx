@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { Comment } from '../utils/ts/interfaces';
 import CommentForm from './CommentForm';
 import { UserCircleIcon } from '@heroicons/react/outline';
@@ -21,8 +21,6 @@ interface Props {
 const Comment = ({ comment, parent, onSaveComment, onVote, depth }: Props) => {
     const [showReplyForm, setShowReplyForm] = useState(false);
     const evenDepth = depth % 2 === 0;
-
-    console.log(comment);
 
     return (
         <div
@@ -97,4 +95,4 @@ const Comment = ({ comment, parent, onSaveComment, onVote, depth }: Props) => {
     );
 };
 
-export default Comment;
+export default memo(Comment);

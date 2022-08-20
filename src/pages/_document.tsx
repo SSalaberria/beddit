@@ -16,7 +16,18 @@ export default function Document() {
 
     return (
         <Html>
-            <Head />
+            <Head>
+                <title>Beddit</title>
+                <meta
+                    name="description"
+                    content="Beddit, a place to share news and opinions on different topics."
+                />
+                <link
+                    rel="shortcut icon"
+                    href="/images/bd-logo.svg"
+                    type="image/svg+xml"
+                />
+            </Head>
             <body>
                 <script dangerouslySetInnerHTML={{ __html: setInitialTheme }} />
                 <Main />

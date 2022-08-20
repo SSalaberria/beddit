@@ -1,4 +1,4 @@
-import { VoteOption } from 'src/utils/ts/types';
+import { ContentType, VoteOption } from 'src/utils/ts/types';
 import type { InfiniteData } from 'react-query';
 import {
     useInfiniteQuery,
@@ -35,16 +35,16 @@ export const useAddPostMutation = (params?: PostsParams) => {
 
     return useMutation(
         ({
-            title,
-            content,
             subeddit,
+            ...data
         }: {
             title: string;
             content: string;
             subeddit: string;
+            contentType: ContentType;
         }) =>
             httpClient
-                .post('/post', { title, content, subedditName: subeddit })
+                .post('/post', { ...data, subedditName: subeddit })
                 .then(res => res.data),
         {
             onSuccess: (newPost: Post) => {
@@ -89,7 +89,7 @@ export const usePostVoteMutation = (params?: PostsParams) => {
                     queryKey,
                     // @ts-ignore
                     prevData => {
-                        const modifiedPages = prevData?.pages.map(page => {
+                        const modifiedPages = prevData?.pages?.map(page => {
                             const modifiedPosts = page.posts.map(post => {
                                 if (post.id === postId) {
                                     const isPostVoted = Boolean(
@@ -144,7 +144,7 @@ export const usePostVoteMutation = (params?: PostsParams) => {
                     queryKey,
                     // @ts-ignore
                     prevData => {
-                        const modifiedPages = prevData?.pages.map(page => {
+                        const modifiedPages = prevData?.pages?.map(page => {
                             const modifiedPosts = page.posts.map(post => {
                                 if (post.id === postId && post.votes?.length) {
                                     return {

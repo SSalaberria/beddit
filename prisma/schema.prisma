@@ -45,21 +45,28 @@ model Subeddit {
 }
 
 model Post {
-    id            Int       @id @default(autoincrement())
-    title         String    @db.VarChar(255)
-    content       String    @db.LongText
-    author        User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+    id            Int         @id @default(autoincrement())
+    title         String      @db.VarChar(255)
+    content       String      @db.LongText
+    contentType   ContentType @default(Text)
+    author        User        @relation(fields: [authorId], references: [id], onDelete: Cascade)
     authorId      String
-    createdAt     DateTime  @default(now())
-    updatedAt     DateTime  @updatedAt
-    subeddit      Subeddit  @relation(fields: [subedditId], references: [id])
+    createdAt     DateTime    @default(now())
+    updatedAt     DateTime    @updatedAt
+    subeddit      Subeddit    @relation(fields: [subedditId], references: [id])
     subedditId    String
     comments      Comment[]
-    commentsDepth Int       @default(0)
+    commentsDepth Int         @default(0)
     votes         Vote[]
 
     @@index(fields: [title])
     @@index([subedditId, authorId])
+}
+
+enum ContentType {
+    Text
+    Image
+    Video
 }
 
 model Comment {

@@ -1,5 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { useState } from 'react';
+import Head from 'next/head';
+import { RefObject, useState } from 'react';
+import { ContentType } from 'src/utils/ts/types';
 import AddPostModal from '../../../components/AddPostModal';
 import Layout from '../../../components/layout/Layout';
 import PostsFeed from '../../../components/PostsFeed';
@@ -71,6 +73,7 @@ const SubedditPage = ({ subeddit }: Props) => {
     const handleSubmitPost = async (data: {
         title: string;
         content: string;
+        contentType: ContentType;
     }) => {
         if (subeddit) {
             addPostMutation.mutate({
@@ -84,6 +87,9 @@ const SubedditPage = ({ subeddit }: Props) => {
 
     return (
         <Layout>
+            <Head>
+                <title>/{subeddit.name} - Beddit</title>
+            </Head>
             <div className="flex flex-col justify-center items-center gap-4">
                 {showAddPostModal && (
                     <AddPostModal
@@ -105,6 +111,8 @@ const SubedditPage = ({ subeddit }: Props) => {
                 <button
                     className="btn-primary"
                     onClick={() => setShowAddPostModal(true)}
+                    data-bs-toggle="modal"
+                    data-bs-target="#addPostModal"
                 >
                     Create Post
                 </button>

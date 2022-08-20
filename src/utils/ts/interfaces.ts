@@ -1,4 +1,4 @@
-import { VoteOption } from 'src/utils/ts/types';
+import { VoteOption, ContentType } from 'src/utils/ts/types';
 export interface User {
     id: string;
     name: string;
@@ -21,6 +21,7 @@ export interface Post {
     comments: Comment[];
     commentsDepth: number;
     votes?: Vote[];
+    contentType: ContentType;
     _count: {
         comments: number;
         votes: number;

@@ -3,7 +3,9 @@ import type { Session } from 'next-auth';
 import { unstable_getServerSession as getServerSession } from 'next-auth';
 import { authOptions as nextAuthOptions } from '../auth/[...nextauth]';
 import { prisma } from '../../../server/db/client';
-import type { Post } from '@prisma/client';
+import type { ContentType, Post } from '@prisma/client';
+import { CONTENT_TYPES } from 'src/utils/consts';
+import { uploadImage } from 'src/utils/file';
 
 export default async function handler(
     req: NextApiRequest,
@@ -31,6 +33,7 @@ interface PostRequest {
     title: string;
     content: string;
     subedditName: string;
+    contentType: ContentType;
 }
 async function handlePOST(
     req: NextApiRequest,
@@ -42,7 +45,7 @@ async function handlePOST(
         return;
     }
 
-    const { title, content, subedditName }: PostRequest = req.body;
+    let { title, content, subedditName, contentType }: PostRequest = req.body;
     if (!title || !content) {
         res.status(400).json({ error: 'Missing title or content' });
         return;
@@ -54,11 +57,17 @@ async function handlePOST(
         },
     });
 
+    if (contentType === CONTENT_TYPES.IMAGE) {
+        const response = await uploadImage(content);
+        content = response?.secure_url ?? '/images/bd-logo.svg';
+    }
+
     const post = await prisma.post.create({
         // @ts-ignore
         data: {
             title,
             content,
+            contentType,
             authorId: session.user?.id,
             subedditId: subeddit?.id,
         },

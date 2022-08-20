@@ -1,11 +1,9 @@
 import httpClient from './http';
 import { Post, Subeddit } from './ts/interfaces';
 
-interface fetchSubedditsResponse {
+export const fetchSubeddits = async (): Promise<{
     subeddits: Subeddit[];
-}
-
-export const fetchSubeddits = async (): Promise<fetchSubedditsResponse> => {
+}> => {
     return httpClient.get(`/subeddit`).then(res => res.data);
 };
 

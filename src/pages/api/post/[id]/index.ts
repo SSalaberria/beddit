@@ -36,18 +36,23 @@ const handleGET = async (
         return;
     }
 
-    const initialPostData = await prisma.post.findUnique({
-        where: {
-            id: Number(id),
-        },
-        include: {
-            comments: {
-                select: {
-                    _count: true,
+    const [initialPostData, votesSum] = await Promise.all([
+        prisma.post.findUnique({
+            where: {
+                id: Number(id),
+            },
+            include: {
+                comments: {
+                    select: {
+                        _count: true,
+                    },
                 },
             },
-        },
-    });
+        }),
+        prisma.vote
+            .findMany({ where: { postId: Number(id) } })
+            .then(votes => votes.reduce((acc, vote) => acc + vote.voteType, 0)),
+    ]);
 
     if (!initialPostData) {
         res.status(404).json({ error: 'Post not found' });
@@ -91,6 +96,13 @@ const handleGET = async (
                     createdAt: 'desc',
                 },
             },
+            ...(session && {
+                votes: {
+                    where: {
+                        authorId: session?.user?.id,
+                    },
+                },
+            }),
             _count: {
                 select: {
                     comments: true,
@@ -106,6 +118,10 @@ const handleGET = async (
 
     const processedPost = {
         ...post,
+        _count: {
+            ...post?._count,
+            votesSum,
+        },
         comments: processCommentVotes(post?.comments as any, session?.user?.id),
     };
 

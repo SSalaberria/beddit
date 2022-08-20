@@ -22,13 +22,16 @@
     }
     .btn-primary,
     .btn-secondary {
-        @apply transition ease-in-out hover:-translate-y-1 duration-300 ease-in-out;
+        @apply transition ease-in-out hover:-translate-y-1 duration-300;
     }
     .text-secondary {
         @apply text-gray-400 dark:text-gray-500;
     }
     .clickable {
         @apply cursor-pointer hover:text-purple-300 hover:scale-125 duration-200;
+    }
+    .radio-primary {
+        @apply w-4 h-4 cursor-pointer accent-purple-300 text-purple-300 bg-gray-100 border-gray-300 dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600;
     }
 }
 
@@ -37,7 +40,7 @@ html {
 }
 
 .fadeIn {
-    animation: fadeInAnimation 1s;
+    animation: fadeInAnimation 0.7s;
 }
 
 .comment-primary {

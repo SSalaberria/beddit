@@ -33,14 +33,6 @@ const Layout = ({ children }: LayoutProps) => {
 
     return (
         <div className={styles.scrollablePage && 'dark:bg-gray-900'}>
-            <Head>
-                <title>Beddit</title>
-                <meta
-                    name="description"
-                    content="Beddit, a place to share news and opinions on different topics."
-                />
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
             <div className="flex justify-center pt-2 gap-4">
                 {pinnedSubeddits.map(sub => (
                     <Link href={`/b/${sub}`} key={sub}>
