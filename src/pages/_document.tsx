@@ -17,7 +17,6 @@ export default function Document() {
     return (
         <Html>
             <Head>
-                <title>Beddit</title>
                 <meta
                     name="description"
                     content="Beddit, a place to share news and opinions on different topics."

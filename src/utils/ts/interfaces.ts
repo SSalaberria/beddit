@@ -53,6 +53,8 @@ export interface Subeddit {
     createdAt: string;
     updatedAt: string;
     Posts?: Post[];
+    moderators?: User[];
+    owner?: User;
 }
 
 export interface Vote {

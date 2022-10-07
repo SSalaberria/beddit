@@ -1,7 +1,6 @@
-import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { ThemeOption } from '../../utils/ts/types';
-import Toggle from '../Toggle';
+import Toggle from '../common/Toggle';
 import styles from './layout.module.css';
 import Navbar from './Navbar';
 import pinnedSubeddits from 'src/utils/data/pinned-subeddits.json';
@@ -33,7 +32,7 @@ const Layout = ({ children }: LayoutProps) => {
 
     return (
         <div className={styles.scrollablePage && 'dark:bg-gray-900'}>
-            <div className="flex justify-center pt-2 gap-4">
+            <div className="flex justify-center flex-wrap pt-2 gap-4">
                 {pinnedSubeddits.map(sub => (
                     <Link href={`/b/${sub}`} key={sub}>
                         <a>

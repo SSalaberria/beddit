@@ -25,6 +25,7 @@
         "chalk": "^5.0.1",
         "cloudinary": "^1.30.1",
         "crypto-js": "^4.1.1",
+        "lodash.debounce": "^4.0.8",
         "loglevel": "^1.8.0",
         "loglevel-plugin-prefix": "^0.8.4",
         "next": "12.2.0",
@@ -35,6 +36,7 @@
     },
     "devDependencies": {
         "@types/crypto-js": "^4.1.1",
+        "@types/lodash.debounce": "^4.0.7",
         "@types/node": "18.0.0",
         "@types/react": "18.0.14",
         "@types/react-dom": "18.0.5",

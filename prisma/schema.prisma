@@ -5,7 +5,7 @@
 // The main property provider defines which Prisma Client (language specific) is created - currently, only prisma-client-js is available.
 generator client {
     provider        = "prisma-client-js"
-    previewFeatures = ["referentialIntegrity"]
+    previewFeatures = ["referentialIntegrity", "fullTextSearch", "fullTextIndex"]
 }
 
 // Data sources: Specify the details of the data sources Prisma should connect to (e.g. a PostgreSQL database)
@@ -42,6 +42,11 @@ model Subeddit {
     createdAt   DateTime @default(now())
     updatedAt   DateTime @default(now())
     posts       Post[]
+    owner       User?    @relation(fields: [ownerId], references: [id], name: "OwnedSubeddits")
+    ownerId     String?
+    moderators  User[]
+
+    @@index([ownerId])
 }
 
 model Post {
@@ -140,19 +145,24 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    password      String?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
-    Post          Post[]
-    createdAt     DateTime  @default(now())
-    updatedAt     DateTime  @updatedAt
-    Comment       Comment[]
-    Vote          Vote[]
+    id                 String     @id @default(cuid())
+    name               String?    @unique
+    email              String?    @unique
+    emailVerified      DateTime?
+    password           String?
+    image              String?
+    accounts           Account[]
+    sessions           Session[]
+    Post               Post[]
+    createdAt          DateTime   @default(now())
+    updatedAt          DateTime   @updatedAt
+    Comment            Comment[]
+    Vote               Vote[]
+    moderatedSubeddits Subeddit[]
+    isSuperAdmin       Boolean    @default(false)
+    ownedSubeddits     Subeddit[] @relation("OwnedSubeddits")
+
+    @@fulltext([name])
 }
 
 model VerificationToken {

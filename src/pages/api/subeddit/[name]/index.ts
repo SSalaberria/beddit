@@ -27,6 +27,20 @@ const handleGET = async (req: NextApiRequest, res: NextApiResponse) => {
                     createdAt: 'desc',
                 },
             },
+            moderators: {
+                select: {
+                    id: true,
+                    name: true,
+                    image: true,
+                },
+            },
+            owner: {
+                select: {
+                    id: true,
+                    name: true,
+                    image: true,
+                },
+            },
         },
     });
 

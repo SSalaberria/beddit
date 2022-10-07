@@ -1,9 +1,9 @@
 import { memo, useState } from 'react';
-import { Comment } from '../utils/ts/interfaces';
+import { Comment } from '../../utils/ts/interfaces';
 import CommentForm from './CommentForm';
 import { UserCircleIcon } from '@heroicons/react/outline';
-import { formatDate } from '../utils/date';
-import Voting from './Voting';
+import { formatDate } from '../../utils/date';
+import Voting from '../common/Voting';
 import { VoteOption } from 'src/utils/ts/types';
 
 interface Props {

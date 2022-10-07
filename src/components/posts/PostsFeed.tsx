@@ -4,9 +4,9 @@ import { useCallback, useRef } from 'react';
 import { CONTENT_TYPES } from 'src/utils/consts';
 import { Post } from 'src/utils/ts/interfaces';
 import { VoteOption } from 'src/utils/ts/types';
-import { usePosts, usePostVoteMutation } from '../hooks/usePosts';
-import { formatDate } from '../utils/date';
-import Voting from './Voting';
+import { usePosts, usePostVoteMutation } from '../../hooks/usePosts';
+import { formatDate } from '../../utils/date';
+import Voting from '../common/Voting';
 
 interface PostProps {
     post: Post;

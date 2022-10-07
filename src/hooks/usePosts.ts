@@ -186,6 +186,7 @@ export const usePosts = (params: PostsParams) => {
         ['posts', params],
         ({ pageParam }) => fetchPosts({ ...params, page: pageParam || 1 }),
         {
+            staleTime: 1000 * 60 * 5,
             getNextPageParam: (lastPage, allPages) => {
                 if (lastPage.posts.length === 0) return;
 
