@@ -10,22 +10,33 @@ interface Props {
     comment: Comment;
     parent?: Comment;
     depth: number;
+    loggedUserId?: string;
+    showModActions: boolean;
     onSaveComment: (formData: {
         content: string;
         depth: number;
         parentId?: string;
     }) => void;
     onVote: (voteData: { commentId: string; voteType: VoteOption }) => void;
+    onDelete: (commentId: string) => void;
 }
 
-const Comment = ({ comment, parent, onSaveComment, onVote, depth }: Props) => {
+const Comment = ({
+    comment,
+    parent,
+    showModActions,
+    onSaveComment,
+    onVote,
+    onDelete,
+    depth,
+    loggedUserId,
+}: Props) => {
     const [showReplyForm, setShowReplyForm] = useState(false);
-    const evenDepth = depth % 2 === 0;
 
     return (
         <div
-            className={`flex flex-col bg-slate-100 border-gray-200 dark:bg-slate-800 dark:border-gray-600 border rounded p-3 my-2 gap-2 ${
-                evenDepth ? 'comment-primary' : 'comment-secondary'
+            className={`flex flex-col bg-slate-100 border-gray-200  dark:border-gray-600 border rounded p-3 my-2 gap-2 ${
+                depth % 2 === 0 ? 'comment-primary' : 'comment-secondary'
             }`}
         >
             <div className="flex items-center gap-2">
@@ -43,6 +54,7 @@ const Comment = ({ comment, parent, onSaveComment, onVote, depth }: Props) => {
                     <Voting
                         total={comment.voteCount}
                         vote={comment?.userVote && comment?.userVote?.voteType}
+                        disabled={Boolean(comment.deletedAt)}
                         onVote={vote =>
                             onVote({ commentId: comment.id, voteType: vote })
                         }
@@ -51,7 +63,9 @@ const Comment = ({ comment, parent, onSaveComment, onVote, depth }: Props) => {
                     />
                 </div>
             </div>
-            <p>{comment.content}</p>
+            <p className={!comment.content ? 'italic text-gray-400' : ''}>
+                {comment.content ?? 'This comment has been deleted.'}
+            </p>
             <div className="mt-2">
                 <div>
                     {showReplyForm && (
@@ -69,15 +83,23 @@ const Comment = ({ comment, parent, onSaveComment, onVote, depth }: Props) => {
                         </div>
                     )}
                 </div>
-                {!showReplyForm && (
-                    <>
-                        <button
-                            className="btn-secondary py-1"
-                            onClick={() => setShowReplyForm(true)}
-                        >
-                            Reply
-                        </button>
-                    </>
+                {!showReplyForm && !comment.deletedAt && (
+                    <button
+                        className="btn-secondary py-1"
+                        onClick={() => setShowReplyForm(true)}
+                    >
+                        Reply
+                    </button>
+                )}
+
+                {((loggedUserId === comment.authorId && !comment.deletedAt) ||
+                    showModActions) && (
+                    <button
+                        className="btn-secondary py-1"
+                        onClick={() => onDelete(comment.id)}
+                    >
+                        Delete
+                    </button>
                 )}
 
                 {comment.children?.map(child => (
@@ -85,6 +107,9 @@ const Comment = ({ comment, parent, onSaveComment, onVote, depth }: Props) => {
                         comment={child}
                         parent={comment}
                         onSaveComment={onSaveComment}
+                        onDelete={onDelete}
+                        loggedUserId={loggedUserId}
+                        showModActions={showModActions}
                         onVote={onVote}
                         depth={depth + 1}
                         key={child.id}

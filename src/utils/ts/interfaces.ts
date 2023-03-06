@@ -14,10 +14,7 @@ export interface Post {
     authorId: string;
     createdAt: string;
     updatedAt: string;
-    subeddit: {
-        id: string;
-        name: string;
-    };
+    subeddit: Subeddit;
     comments: Comment[];
     commentsDepth: number;
     votes?: Vote[];
@@ -31,7 +28,7 @@ export interface Post {
 
 export interface Comment {
     id: string;
-    content: string;
+    content: string | null;
     author: User;
     authorId: string;
     post: Post;
@@ -40,6 +37,7 @@ export interface Comment {
     parentId?: string;
     createdAt: string;
     updatedAt: string;
+    deletedAt: string;
     children: Comment[];
     votes?: Vote[];
     userVote: Vote | null;

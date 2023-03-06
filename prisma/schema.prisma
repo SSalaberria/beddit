@@ -81,7 +81,8 @@ model Comment {
     authorId  String
     createdAt DateTime  @default(now())
     updatedAt DateTime  @updatedAt
-    post      Post      @relation(fields: [postId], references: [id])
+    deletedAt DateTime?
+    post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
     postId    Int
     parent    Comment?  @relation("CommentTree", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
     parentId  String?
@@ -97,9 +98,9 @@ model Vote {
     authorId     String
     createdAt    DateTime     @default(now())
     updatedAt    DateTime     @updatedAt
-    post         Post?        @relation(fields: [postId], references: [id])
+    post         Post?        @relation(fields: [postId], references: [id], onDelete: Cascade)
     postId       Int?
-    comment      Comment?     @relation(fields: [commentId], references: [id])
+    comment      Comment?     @relation(fields: [commentId], references: [id], onDelete: Cascade)
     commentId    String?
     voteType     Int          @db.TinyInt
     voteableType VoteableType

@@ -1,5 +1,6 @@
 import httpClient from './http';
 import { Post, Subeddit, User } from './ts/interfaces';
+import { VoteOption } from './ts/types';
 
 export const fetchSubeddits = async (): Promise<{
     subeddits: Subeddit[];
@@ -42,3 +43,31 @@ export const addSubedditModerator = async ({
     httpClient
         .put(`/subeddit/${subedditName}/moderators`, { username })
         .then(res => res.data);
+
+export const voteComment = async ({
+    commentId,
+    postId,
+    voteType,
+}: {
+    commentId: string;
+    postId: number;
+    voteType: VoteOption;
+}) =>
+    httpClient.post(`/post/${postId}/comment/${commentId}/vote`, {
+        voteType,
+    });
+
+export const createComment = async (payload: {
+    content: string;
+    depth: number;
+    parentId?: string;
+    postId: number;
+}) =>
+    httpClient
+        .post(`/post/${payload.postId}/comment`, payload)
+        .then(() => window.location.reload());
+
+export const deleteComment = async (payload: {
+    postId: number;
+    commentId: string;
+}) => httpClient.delete(`/post/${payload.postId}/comment/${payload.commentId}`);

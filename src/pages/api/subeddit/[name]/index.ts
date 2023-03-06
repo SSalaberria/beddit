@@ -12,7 +12,7 @@ export default async function handler(
     return res.status(404).json({ message: 'Not found' });
 }
 
-// /api/subeddit/[name]
+// GET /api/subeddit/[name]
 const handleGET = async (req: NextApiRequest, res: NextApiResponse) => {
     const { name } = req.query;
 

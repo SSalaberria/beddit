@@ -3,7 +3,7 @@ import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import Voting from 'src/components/common/Voting';
 import { usePostVoteMutation } from 'src/hooks/usePosts';
 import { CONTENT_TYPES } from 'src/utils/consts';
@@ -12,8 +12,12 @@ import Comment from '../../../../components/comments/Comment';
 import CommentForm from '../../../../components/comments/CommentForm';
 import Layout from '../../../../components/layout/Layout';
 import { formatDate } from '../../../../utils/date';
-import httpClient from '../../../../utils/http';
-import { fetchPost } from '../../../../utils/requests';
+import {
+    createComment,
+    deleteComment,
+    fetchPost,
+    voteComment,
+} from '../../../../utils/requests';
 import { Post } from '../../../../utils/ts/interfaces';
 
 export const getServerSideProps: GetServerSideProps = async context => {
@@ -53,30 +57,39 @@ const PostDetails = ({ post }: { post: Post }) => {
     );
     const [votes, setVotes] = useState<number>(post._count.votesSum);
 
+    const showModActions = useMemo(
+        () =>
+            Boolean(
+                post?.subeddit.moderators &&
+                    post.subeddit.moderators.find(
+                        mod => mod.id === session?.user.id,
+                    ),
+            ),
+        [session],
+    );
+
     const handleCommentSave = (formData: {
         content: string;
         depth: number;
         parentId?: string;
-    }): void => {
-        httpClient
-            .post(`/post/${post.id}/comment`, formData)
-            .then(() => window.location.reload());
-    };
+    }) =>
+        createComment({ ...formData, postId: post.id }).then(() =>
+            window.location.reload(),
+        );
 
     const handleCommentVote = useCallback(
-        ({
-            commentId,
-            voteType,
-        }: {
-            commentId: string;
-            voteType: VoteOption;
-        }) => {
-            httpClient
-                .post(`/post/${post.id}/comment/${commentId}/vote`, {
-                    voteType,
-                })
-                .then(() => window.location.reload());
-        },
+        (payload: { commentId: string; voteType: VoteOption }) =>
+            voteComment({ ...payload, postId: post.id }).then(() =>
+                window.location.reload(),
+            ),
+        [],
+    );
+
+    const handleCommentDelete = useCallback(
+        (commentId: string) =>
+            deleteComment({ commentId, postId: post.id }).then(() =>
+                window.location.reload(),
+            ),
         [],
     );
 
@@ -213,6 +226,9 @@ const PostDetails = ({ post }: { post: Post }) => {
                             comment={comment}
                             onSaveComment={handleCommentSubmit}
                             onVote={handleCommentVote}
+                            onDelete={handleCommentDelete}
+                            showModActions={showModActions}
+                            loggedUserId={session?.user.id}
                             depth={0}
                             key={comment.id}
                         />
