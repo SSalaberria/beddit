@@ -10,7 +10,7 @@ const Dialog = ({ children, title, onClose }: Props) => (
         onClick={onClose}
     >
         <div
-            className="relative p-4 w-full max-w-xl h-full md:h-auto mx-auto z-10 fadeIn"
+            className="relative p-4 w-full max-w-xl h-full md:h-auto mx-auto z-10 fadeIn transition-all translate-y-[10%]"
             onClick={e => e.stopPropagation()}
         >
             <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">

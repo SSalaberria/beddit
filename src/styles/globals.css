@@ -14,6 +14,9 @@
     textarea {
         @apply hover:border-slate-400 dark:hover:border-slate-100;
     }
+    .input {
+        @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white;
+    }
     .btn-primary {
         @apply text-white dark:text-gray-700 bg-purple-300 hover:bg-purple-400 focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-purple-300 dark:hover:bg-purple-400 focus:outline-none dark:focus:ring-purple-800;
     }
@@ -41,6 +44,7 @@ html {
 
 .fadeIn {
     animation: fadeInAnimation 0.7s;
+    transform: translateY(0px);
 }
 
 .comment-primary {

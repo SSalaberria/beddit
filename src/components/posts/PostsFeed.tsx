@@ -1,3 +1,4 @@
+import { useSession, signIn } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useRef, memo } from 'react';
@@ -17,10 +18,6 @@ interface PostProps {
 
 const Post = memo(
     ({ post, subeddit, onVote, onDeleteVote }: PostProps) => {
-        const { voteMutation, deleteVoteMutation } = usePostVoteMutation({
-            subeddit,
-        });
-
         const handleVote = (vote: VoteOption) =>
             onVote({
                 postId: post.id,
@@ -128,7 +125,7 @@ const Post = memo(
 
 type Props = {
     subeddit?: string;
-    query: string | null;
+    query?: string | null;
 };
 
 const PostsFeed = ({ subeddit, query }: Props) => {
@@ -140,6 +137,7 @@ const PostsFeed = ({ subeddit, query }: Props) => {
         subeddit,
         query,
     });
+    const { status } = useSession();
     const observer = useRef<IntersectionObserver>();
 
     const obsElement = useCallback(
@@ -159,9 +157,13 @@ const PostsFeed = ({ subeddit, query }: Props) => {
 
     const handleVote = useCallback(
         (payload: { postId: number; voteType: VoteOption }) => {
-            voteMutation.mutate(payload);
+            if (status === 'authenticated') {
+                voteMutation.mutate(payload);
+            } else {
+                signIn();
+            }
         },
-        [],
+        [status],
     );
 
     const handleDeleteVote = useCallback((payload: { postId: number }) => {

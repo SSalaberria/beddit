@@ -37,56 +37,96 @@
             "description": "Ask your question on the beddit community",
             "posts": [
                 {
-                    "title": "What did you falsely believe as a kid?",
-                    "content": "I want to make a beddit. How do I do that?"
+                    "title": "What is the capital of France?",
+                    "content": "I need to plan a trip",
+                    "comments": [
+                        { "content": "Paris is amazing!" },
+                        { "content": "Try the Eiffel Tower!" },
+                        { "content": "Don't forget to visit the Louvre!" }
+                    ]
                 },
                 {
-                    "title": "What have you slowly lost all respect for?",
-                    "content": "I want to make a beddit. How do I do that?"
+                    "title": "How can I learn a new language?",
+                    "content": "I want to travel more",
+                    "comments": [
+                        { "content": "Duolingo is great!" },
+                        { "content": "Watch movies in that language!" },
+                        { "content": "Find a language exchange partner!" }
+                    ]
                 },
                 {
-                    "title": "What did you mispronounce for an embarrassingly large portion of your life?",
-                    "content": "I want to make a beddit. How do I do that?"
+                    "title": "What is the best book you've read?",
+                    "content": "Looking for recommendations",
+                    "comments": [
+                        { "content": "The Alchemist by Paulo Coelho!" },
+                        { "content": "To Kill a Mockingbird by Harper Lee" },
+                        { "content": "The Great Gatsby by F. Scott Fitzgerald" }
+                    ]
                 },
                 {
-                    "title": "What are some things American people do that instantly tell you that they're American?",
-                    "content": "I want to make a beddit. How do I do that?"
+                    "title": "What is the best way to exercise at home?",
+                    "content": "I don't have a gym membership",
+                    "comments": [
+                        { "content": "Try yoga or Pilates!" },
+                        { "content": "HIIT workouts are great!" },
+                        { "content": "Buy a set of dumbbells!" }
+                    ]
                 },
                 {
-                    "title": "Which movie has the best soundtrack that you can’t get enough of?",
-                    "content": "I want to make a beddit. How do I do that?"
+                    "title": "How can I improve my coding skills?",
+                    "content": "I want to be a better programmer",
+                    "comments": [
+                        { "content": "Practice coding challenges!" },
+                        { "content": "Build your own projects!" },
+                        { "content": "Take online courses!" }
+                    ]
                 },
                 {
-                    "title": "What was your favorite MTV show from back in the day?",
-                    "content": "I want to make a beddit. How do I do that?"
+                    "title": "What is the best way to save money?",
+                    "content": "I want to be more financially stable",
+                    "comments": [
+                        { "content": "Create a budget and stick to it!" },
+                        { "content": "Cut out unnecessary expenses!" },
+                        { "content": "Start investing your money!" }
+                    ]
                 },
                 {
-                    "title": "What's a subscription that you're happy to renew?",
-                    "content": "I want to make a beddit. How do I do that?"
+                    "title": "How can I reduce my stress levels?",
+                    "content": "I'm feeling overwhelmed",
+                    "comments": [
+                        { "content": "Meditate for a few minutes each day!" },
+                        { "content": "Try deep breathing exercises!" },
+                        { "content": "Take breaks and do things you enjoy!" }
+                    ]
                 },
                 {
-                    "title": "If life had “loading screen tips”, what would they be?",
-                    "content": "I want to make a beddit. How do I do that?"
+                    "title": "What is the best way to study for exams?",
+                    "content": "I need to improve my grades",
+                    "comments": [
+                        { "content": "Make a study schedule and stick to it!" },
+                        {
+                            "content": "Use flashcards to memorize information!"
+                        },
+                        { "content": "Take breaks and stay hydrated!" }
+                    ]
                 },
                 {
-                    "title": "Whats an unwritten rule in a Public Restroom?",
-                    "content": "I want to make a beddit. How do I do that?"
+                    "title": "What is the best way to start a business?",
+                    "content": "I have an idea",
+                    "comments": [
+                        { "content": "Do market research!" },
+                        { "content": "Create a business plan!" },
+                        { "content": "Find a mentor or business partner!" }
+                    ]
                 },
                 {
-                    "title": "What is the worst Gatorade flavor?",
-                    "content": "I want to make a beddit. How do I do that?"
-                },
-                {
-                    "title": "What movie left you with an unsettling feeling for years to come?",
-                    "content": "I want to make a beddit. How do I do that?"
-                },
-                {
-                    "title": "Being as stereotypic as possible, what country are you from?",
-                    "content": "I want to make a beddit. How do I do that?"
-                },
-                {
-                    "title": "What food reminds you of school years?",
-                    "content": "I want to make a beddit. How do I do that?"
+                    "title": "How can I improve my public speaking skills?",
+                    "content": "I get nervous when speaking in public",
+                    "comments": [
+                        { "content": "Practice in front of a mirror!" },
+                        { "content": "Record yourself and watch the video!" },
+                        { "content": "Join a public speaking club!" }
+                    ]
                 }
             ]
         },
@@ -95,8 +135,98 @@
             "description": "Share your art with the world",
             "posts": [
                 {
-                    "title": "Share your art with the world",
-                    "content": "I want to make a beddit. How do I do that?"
+                    "title": "Van Gogh's Starry Night",
+                    "content": "A masterpiece of swirling stars.",
+                    "comments": [
+                        { "content": "I love the colors!" },
+                        { "content": "So dreamy." },
+                        { "content": "A true classic." }
+                    ]
+                },
+                {
+                    "title": "Mona Lisa",
+                    "content": "The enigmatic smile that launched a thousand theories.",
+                    "comments": [
+                        { "content": "One of the most famous paintings ever!" },
+                        { "content": "I wonder what she's thinking?" },
+                        { "content": "So mysterious." }
+                    ]
+                },
+                {
+                    "title": "The Persistence of Memory",
+                    "content": "Salvador Dali's melting clocks.",
+                    "comments": [
+                        { "content": "This painting always makes me think!" },
+                        { "content": "So surreal!" },
+                        { "content": "Time is melting away..." }
+                    ]
+                },
+                {
+                    "title": "Guernica",
+                    "content": "Pablo Picasso's powerful anti-war statement.",
+                    "comments": [
+                        {
+                            "content": "A haunting depiction of the horrors of war."
+                        },
+                        { "content": "So emotional." },
+                        { "content": "A masterpiece of protest art." }
+                    ]
+                },
+                {
+                    "title": "The Scream",
+                    "content": "Edvard Munch's expression of existential angst.",
+                    "comments": [
+                        { "content": "So intense!" },
+                        { "content": "I feel his pain." },
+                        { "content": "A true masterpiece of expressionism." }
+                    ]
+                },
+                {
+                    "title": "The Birth of Venus",
+                    "content": "Sandro Botticelli's iconic depiction of the goddess of love.",
+                    "comments": [
+                        { "content": "Such a beautiful painting!" },
+                        { "content": "One of my favorites." },
+                        { "content": "A classic Renaissance masterpiece." }
+                    ]
+                },
+                {
+                    "title": "Water Lilies",
+                    "content": "Claude Monet's serene and tranquil series.",
+                    "comments": [
+                        { "content": "I could look at these all day!" },
+                        { "content": "So calming." },
+                        { "content": "A true masterpiece of Impressionism." }
+                    ]
+                },
+                {
+                    "title": "The Kiss",
+                    "content": "Gustav Klimt's passionate embrace.",
+                    "comments": [
+                        {
+                            "content": "One of the most beautiful paintings I've ever seen."
+                        },
+                        { "content": "So romantic!" },
+                        { "content": "A true masterpiece of Art Nouveau." }
+                    ]
+                },
+                {
+                    "title": "The Last Supper",
+                    "content": "Leonardo da Vinci's iconic depiction of Jesus and his disciples.",
+                    "comments": [
+                        { "content": "So much detail!" },
+                        { "content": "A true masterpiece of religious art." },
+                        { "content": "The ultimate dinner party." }
+                    ]
+                },
+                {
+                    "title": "The Great Wave off Kanagawa",
+                    "content": "Katsushika Hokusai's iconic print of a monstrous wave.",
+                    "comments": [
+                        { "content": "So dynamic!" },
+                        { "content": "One of my favorite prints." },
+                        { "content": "A true masterpiece of Japanese art." }
+                    ]
                 }
             ]
         },
@@ -105,8 +235,87 @@
             "description": "A video is worth a thousand words, share yours!",
             "posts": [
                 {
-                    "title": "A video is worth a thousand words, share yours!",
-                    "content": "I want to make a beddit. How do I do that?"
+                    "title": "How to Make a Dalgona Coffee",
+                    "content": "Quick and easy recipe in 5 minutes",
+                    "comments": [
+                        { "content": "I love Dalgona coffee!" },
+                        { "content": "Looks yummy!" },
+                        { "content": "Can't wait to try this" },
+                        { "content": "I already made this, it's amazing!" },
+                        { "content": "Perfect for my morning routine" }
+                    ]
+                },
+                {
+                    "title": "Dancing Parrot",
+                    "content": "Watch this talented bird groove to the beat",
+                    "comments": [
+                        { "content": "Wow, this is amazing!" },
+                        { "content": "That parrot has some serious moves!" },
+                        { "content": "I want to dance with that bird" },
+                        {
+                            "content": "This is the best thing I've seen all day!"
+                        },
+                        { "content": "I can't stop watching this!" }
+                    ]
+                },
+                {
+                    "title": "Guitar Tutorial: How to Play Wonderwall",
+                    "content": "Learn the classic Oasis song with these easy chords",
+                    "comments": [
+                        { "content": "I've always wanted to learn this song" },
+                        { "content": "Thanks for the tutorial!" },
+                        { "content": "Now I can impress my friends" },
+                        { "content": "I've been playing this on repeat!" },
+                        { "content": "This is my new favorite song to play!" }
+                    ]
+                },
+                {
+                    "title": "Cute Kitten Compilation",
+                    "content": "Get your daily dose of adorableness",
+                    "comments": [
+                        { "content": "Aww, so cute!" },
+                        { "content": "I want to adopt them all!" },
+                        { "content": "My heart just melted" },
+                        { "content": "I needed this today, thanks!" },
+                        { "content": "I can't handle the cuteness!" }
+                    ]
+                },
+                {
+                    "title": "Amazing Acrobatic Performance",
+                    "content": "Watch these talented performers defy gravity",
+                    "comments": [
+                        { "content": "Wow, this is so impressive!" },
+                        { "content": "How do they do that?" },
+                        { "content": "I'm blown away by their skills" },
+                        { "content": "This is like watching magic!" },
+                        {
+                            "content": "I'm feeling inspired to try acrobatics now"
+                        }
+                    ]
+                },
+                {
+                    "title": "Funny Cat Videos",
+                    "content": "Laugh out loud with these hilarious feline antics",
+                    "comments": [
+                        { "content": "I can't stop laughing!" },
+                        { "content": "These cats are hilarious!" },
+                        { "content": "I needed a good laugh, thanks!" },
+                        { "content": "Cat videos never get old" },
+                        { "content": "I'm sending this to all my friends" }
+                    ]
+                },
+                {
+                    "title": "DIY Halloween Costume Ideas",
+                    "content": "Get creative with these easy and affordable costumes",
+                    "comments": [
+                        { "content": "I love DIY costumes!" },
+                        { "content": "These are so creative!" },
+                        { "content": "I'm definitely making one of these" },
+                        {
+                            "content": "I needed some inspiration for my costume"
+                        },
+                        { "content": "Thanks for the ideas!" }
+                    ]
                 }
             ]
         },
@@ -115,8 +324,108 @@
             "description": "A place to share and discuss visual representations of data",
             "posts": [
                 {
-                    "title": "A place to share and discuss visual representations of data",
-                    "content": "I want to make a beddit. How do I do that?"
+                    "title": "Top 10 Countries by GDP",
+                    "content": "Visualizing the world's economic powerhouses",
+                    "comments": [
+                        { "content": "Interesting data, thanks for sharing!" },
+                        {
+                            "content": "GDP isn't everything, what about inequality?"
+                        },
+                        { "content": "Can you do a per capita analysis?" },
+                        {
+                            "content": "I'm surprised to see X country so high up!"
+                        },
+                        {
+                            "content": "Nice chart, could use more color though."
+                        }
+                    ]
+                },
+                {
+                    "title": "The Evolution of the Video Game Industry",
+                    "content": "From Pong to Fortnite in one chart",
+                    "comments": [
+                        { "content": "Wow, video games have come a long way!" },
+                        { "content": "I miss the old school games." },
+                        { "content": "What about mobile gaming?" },
+                        {
+                            "content": "Could you add some annotations to the chart?"
+                        },
+                        {
+                            "content": "Interesting to see how consoles dominate the market."
+                        }
+                    ]
+                },
+                {
+                    "title": "The Rise of E-commerce",
+                    "content": "How online shopping has changed over the years",
+                    "comments": [
+                        { "content": "Great visualization of this trend!" },
+                        {
+                            "content": "I'm curious about the impact on brick-and-mortar stores."
+                        },
+                        {
+                            "content": "Can you break it down by product category?"
+                        },
+                        { "content": "Interesting to see Amazon's dominance." },
+                        {
+                            "content": "Nice chart, but what about developing countries?"
+                        }
+                    ]
+                },
+                {
+                    "title": "The Gender Pay Gap",
+                    "content": "Visualizing the wage disparity between men and women",
+                    "comments": [
+                        {
+                            "content": "This is an important issue, thanks for shedding light on it."
+                        },
+                        {
+                            "content": "What about the intersection of race and gender?"
+                        },
+                        {
+                            "content": "Are there any industries where the gap is narrower?"
+                        },
+                        {
+                            "content": "Great chart, but can you explain the methodology?"
+                        },
+                        { "content": "I'm shocked by the size of the gap!" }
+                    ]
+                },
+                {
+                    "title": "The Global Distribution of Wealth",
+                    "content": "Visualizing the inequality of wealth around the world",
+                    "comments": [
+                        { "content": "This is a powerful visualization." },
+                        {
+                            "content": "What can be done to address this issue?"
+                        },
+                        {
+                            "content": "Can you break it down by income percentile?"
+                        },
+                        {
+                            "content": "Interesting to see how the US compares to other countries."
+                        },
+                        {
+                            "content": "Great chart, but could use a more descriptive title."
+                        }
+                    ]
+                },
+                {
+                    "title": "The Most Popular Social Media Platforms",
+                    "content": "Visualizing the dominance of Facebook, Instagram, and more",
+                    "comments": [
+                        { "content": "Social media is taking over the world!" },
+                        {
+                            "content": "I'm surprised to see X platform so high up."
+                        },
+                        { "content": "What about niche social media sites?" },
+                        {
+                            "content": "Interesting to see the different age groups using each platform."
+                        },
+                        {
+                            "content": "Great chart, but could use some more context."
+                        }
+                    ]
                 }
             ]
         },
@@ -125,8 +434,94 @@
             "description": "Let's get fit together!",
             "posts": [
                 {
-                    "title": "Let's get fit together!",
-                    "content": "I want to make a beddit. How do I do that?"
+                    "title": "The Benefits of Yoga",
+                    "content": "Improve flexibility and reduce stress",
+                    "comments": [
+                        { "content": "I love yoga too!" },
+                        { "content": "Yoga has changed my life!" },
+                        { "content": "Yoga is so relaxing." },
+                        { "content": "I need to try yoga soon." }
+                    ]
+                },
+                {
+                    "title": "High-Intensity Interval Training",
+                    "content": "Burn fat and improve cardiovascular health",
+                    "comments": [
+                        { "content": "I hate HIIT but it works!" },
+                        { "content": "I love the energy boost from HIIT!" },
+                        { "content": "HIIT is the best way to burn calories!" },
+                        { "content": "I'm always sore after a HIIT workout." }
+                    ]
+                },
+                {
+                    "title": "The Benefits of Running",
+                    "content": "Increase endurance and boost mental health",
+                    "comments": [
+                        { "content": "Running is my therapy." },
+                        { "content": "I love the runner's high!" },
+                        { "content": "Running is so much fun!" },
+                        { "content": "I need to start running again." }
+                    ]
+                },
+                {
+                    "title": "Weightlifting for Beginners",
+                    "content": "Build muscle and improve overall strength",
+                    "comments": [
+                        { "content": "Lifting weights is so empowering!" },
+                        {
+                            "content": "I've seen great results from weightlifting!"
+                        },
+                        { "content": "Weightlifting is my favorite workout!" },
+                        { "content": "I need to lift more weights." }
+                    ]
+                },
+                {
+                    "title": "Healthy Eating Habits",
+                    "content": "Maintain a balanced diet and avoid processed foods",
+                    "comments": [
+                        { "content": "Eating clean feels so good!" },
+                        { "content": "Healthy eating is a lifestyle!" },
+                        {
+                            "content": "I feel so much better since I started eating healthier."
+                        },
+                        {
+                            "content": "I need to cut out junk food from my diet."
+                        }
+                    ]
+                },
+                {
+                    "title": "Benefits of Swimming",
+                    "content": "Low-impact exercise that improves cardiovascular health",
+                    "comments": [
+                        { "content": "Swimming is so refreshing!" },
+                        {
+                            "content": "I love the feeling of weightlessness in the water!"
+                        },
+                        { "content": "Swimming is such a great workout!" },
+                        { "content": "I need to swim more often." }
+                    ]
+                },
+                {
+                    "title": "The Importance of Rest Days",
+                    "content": "Allow your body to recover and prevent burnout",
+                    "comments": [
+                        { "content": "Rest days are so important!" },
+                        { "content": "I always feel better after a rest day." },
+                        { "content": "I need to take more rest days." },
+                        { "content": "Rest days are my favorite days!" }
+                    ]
+                },
+                {
+                    "title": "Benefits of Cycling",
+                    "content": "Low-impact exercise that improves cardiovascular health and builds leg muscles",
+                    "comments": [
+                        { "content": "I love cycling in nature!" },
+                        { "content": "Cycling is such a fun way to exercise!" },
+                        {
+                            "content": "Cycling is a great way to explore new places!"
+                        },
+                        { "content": "I need to buy a bike and start cycling." }
+                    ]
                 }
             ]
         },
@@ -135,8 +530,50 @@
             "description": "The latest news about PC gaming",
             "posts": [
                 {
-                    "title": "The latest news about PC gaming",
-                    "content": "I want to make a beddit. How do I do that?"
+                    "title": "Top 10 PC Games of 2022",
+                    "content": "Get ready for the best gaming year yet!",
+                    "comments": [
+                        { "content": "Can't wait to try these games!" },
+                        { "content": "I hope my PC can handle them." },
+                        { "content": "Looks like a great lineup." },
+                        { "content": "I've been waiting for these releases!" }
+                    ]
+                },
+                {
+                    "title": "The Rise of Esports in PC Gaming",
+                    "content": "Competitive gaming continues to grow in popularity.",
+                    "comments": [
+                        { "content": "Esports is the future of gaming!" },
+                        { "content": "I love watching pro players compete." },
+                        { "content": "I wish I was good enough to join." },
+                        {
+                            "content": "Esports events are so exciting to watch!"
+                        }
+                    ]
+                },
+                {
+                    "title": "Why Building Your Own PC is Worth It",
+                    "content": "Customize your setup for the ultimate gaming experience.",
+                    "comments": [
+                        { "content": "I built my own PC and it's amazing!" },
+                        { "content": "Building your own PC is cheaper too!" },
+                        {
+                            "content": "I'm intimidated by the process, but I want to try."
+                        },
+                        { "content": "I'll stick with buying pre-built PCs." }
+                    ]
+                },
+                {
+                    "title": "Steam's Latest Summer Sale",
+                    "content": "Get great deals on PC games this summer.",
+                    "comments": [
+                        {
+                            "content": "I always look forward to the Steam sales!"
+                        },
+                        { "content": "Time to stock up on games!" },
+                        { "content": "My wallet is going to hate me." },
+                        { "content": "I hope the game I want is on sale." }
+                    ]
                 }
             ]
         },
@@ -145,8 +582,94 @@
             "description": "Let's talk about stuff from the past",
             "posts": [
                 {
-                    "title": "Let's talk about stuff from the past",
-                    "content": "I want to make a beddit. How do I do that?"
+                    "title": "The French Revolution",
+                    "content": "The rise and fall of the French monarchy",
+                    "comments": [
+                        { "content": "Very interesting!" },
+                        { "content": "Revolutionary times!" },
+                        { "content": "Vive la France!" }
+                    ]
+                },
+                {
+                    "title": "The American Civil War",
+                    "content": "North vs South in a fight for slavery's end",
+                    "comments": [
+                        { "content": "Glad slavery ended!" },
+                        { "content": "Sad and tragic conflict." },
+                        { "content": "Freedom prevailed!" }
+                    ]
+                },
+                {
+                    "title": "The Industrial Revolution",
+                    "content": "Mass production and modernization changed the world",
+                    "comments": [
+                        { "content": "Revolutionary times!" },
+                        { "content": "Great advancements!" },
+                        { "content": "Capitalism takes over." }
+                    ]
+                },
+                {
+                    "title": "The Renaissance",
+                    "content": "Artistic and cultural rebirth in Europe",
+                    "comments": [
+                        { "content": "Such great art!" },
+                        { "content": "Creative explosion!" },
+                        { "content": "Inspiring time period." }
+                    ]
+                },
+                {
+                    "title": "The Age of Exploration",
+                    "content": "Discovery of new lands and trade routes",
+                    "comments": [
+                        { "content": "Exciting time period!" },
+                        { "content": "New horizons discovered!" },
+                        { "content": "Exploration and exploitation." }
+                    ]
+                },
+                {
+                    "title": "The Cold War",
+                    "content": "Political tension and nuclear threat between USA and USSR",
+                    "comments": [
+                        { "content": "Scary time period!" },
+                        { "content": "Tensions high!" },
+                        { "content": "Good riddance to nuclear threats!" }
+                    ]
+                },
+                {
+                    "title": "The Crusades",
+                    "content": "Holy wars between Christians and Muslims",
+                    "comments": [
+                        { "content": "Religious conflict." },
+                        { "content": "Tragic times!" },
+                        { "content": "Misguided battles." }
+                    ]
+                },
+                {
+                    "title": "The Age of Enlightenment",
+                    "content": "Intellectual movement that challenged traditional beliefs",
+                    "comments": [
+                        { "content": "Great minds at work!" },
+                        { "content": "A turning point in history!" },
+                        { "content": "Intellectual awakening!" }
+                    ]
+                },
+                {
+                    "title": "The World Wars",
+                    "content": "Two global conflicts that shaped the 20th century",
+                    "comments": [
+                        { "content": "Devastating conflicts!" },
+                        { "content": "Never again!" },
+                        { "content": "The world will never forget." }
+                    ]
+                },
+                {
+                    "title": "The Age of Colonialism",
+                    "content": "European powers colonize Africa, Asia, and the Americas",
+                    "comments": [
+                        { "content": "Imperialism at its worst!" },
+                        { "content": "Exploitation of other cultures." },
+                        { "content": "A shameful time in history." }
+                    ]
                 }
             ]
         }

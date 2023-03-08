@@ -84,7 +84,7 @@ const Comment = ({
                         </div>
                     )}
                 </div>
-                {!showReplyForm && !comment.deletedAt && (
+                {!showReplyForm && !comment.deletedAt && loggedUserId && (
                     <button
                         className="btn-secondary py-1"
                         onClick={() => setShowReplyForm(true)}
@@ -126,5 +126,7 @@ export default memo(
     Comment,
     (prevProps, nextProps) =>
         prevProps.comment.id === nextProps.comment.id &&
-        prevProps.comment.children.length === prevProps.comment.children.length,
+        prevProps.comment.children.length ===
+            prevProps.comment.children.length &&
+        prevProps.loggedUserId === nextProps.loggedUserId,
 );

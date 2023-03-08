@@ -2,6 +2,12 @@ import httpClient from './http';
 import { Post, Subeddit, User } from './ts/interfaces';
 import { VoteOption } from './ts/types';
 
+export const registerUser = async (data: {
+    email: string;
+    password: string;
+    name: string;
+}): Promise<User> => httpClient.post('/user/register', data);
+
 export const fetchSubeddits = async (): Promise<{
     subeddits: Subeddit[];
 }> => httpClient.get(`/subeddit`).then(res => res.data);
