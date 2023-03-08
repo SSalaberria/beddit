@@ -181,9 +181,9 @@ async function handleDELETE(
     ]);
 
     if (
-        post?.authorId !== user?.id ||
-        (!user?.moderatedSubeddits.find(sub => sub.id === post?.subedditId) &&
-            !user?.isSuperAdmin)
+        post?.authorId !== user?.id &&
+        !user?.moderatedSubeddits.find(sub => sub.id === post?.subedditId) &&
+        !user?.isSuperAdmin
     ) {
         return res.status(403).json({
             data: {

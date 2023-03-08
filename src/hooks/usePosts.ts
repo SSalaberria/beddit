@@ -8,11 +8,13 @@ import {
 } from 'react-query';
 import httpClient from '../utils/http';
 import { Post } from '../utils/ts/interfaces';
+import { deletePost } from 'src/utils/requests';
 
 interface PostsParams {
     page?: number;
     perPage?: number;
     subeddit?: string;
+    query?: string | null;
 }
 
 interface PostsResponse {
@@ -30,10 +32,10 @@ const fetchPosts = async (
     return httpClient.get('/post', { params }).then(res => res.data);
 };
 
-export const useAddPostMutation = (params?: PostsParams) => {
+export const usePostMutations = (params?: PostsParams) => {
     const queryClient = useQueryClient();
 
-    return useMutation(
+    const addPostMutation = useMutation(
         ({
             subeddit,
             ...data
@@ -71,6 +73,30 @@ export const useAddPostMutation = (params?: PostsParams) => {
             },
         },
     );
+
+    const deletePostMutation = useMutation(
+        (payload: { postId: number }) => deletePost(payload),
+        {
+            onSuccess: (_data, { postId }) => {
+                queryClient.setQueryData<InfiniteData<PostsResponse>>(
+                    ['posts', params],
+                    // @ts-ignore
+                    prevData => {
+                        const modifiedPages = prevData?.pages.map(page => ({
+                            ...page,
+                            posts: page.posts.filter(
+                                post => post.id !== postId,
+                            ),
+                        }));
+
+                        return { ...prevData, pages: modifiedPages };
+                    },
+                );
+            },
+        },
+    );
+
+    return { addPostMutation, deletePostMutation };
 };
 
 export const usePostVoteMutation = (params?: PostsParams) => {

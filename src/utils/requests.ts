@@ -57,17 +57,25 @@ export const voteComment = async ({
         voteType,
     });
 
+export const deleteCommentVote = async ({
+    commentId,
+    postId,
+}: {
+    commentId: string;
+    postId: number;
+}) => httpClient.delete(`/post/${postId}/comment/${commentId}/vote`);
+
 export const createComment = async (payload: {
     content: string;
     depth: number;
     parentId?: string;
     postId: number;
-}) =>
-    httpClient
-        .post(`/post/${payload.postId}/comment`, payload)
-        .then(() => window.location.reload());
+}) => httpClient.post(`/post/${payload.postId}/comment`, payload);
 
 export const deleteComment = async (payload: {
     postId: number;
     commentId: string;
 }) => httpClient.delete(`/post/${payload.postId}/comment/${payload.commentId}`);
+
+export const deletePost = async ({ postId }: { postId: number }) =>
+    httpClient.delete(`/post/${postId}`);

@@ -18,6 +18,7 @@ interface Props {
         parentId?: string;
     }) => void;
     onVote: (voteData: { commentId: string; voteType: VoteOption }) => void;
+    onDeleteVote: (commentId: string) => void;
     onDelete: (commentId: string) => void;
 }
 
@@ -28,6 +29,7 @@ const Comment = ({
     onSaveComment,
     onVote,
     onDelete,
+    onDeleteVote,
     depth,
     loggedUserId,
 }: Props) => {
@@ -58,8 +60,7 @@ const Comment = ({
                         onVote={vote =>
                             onVote({ commentId: comment.id, voteType: vote })
                         }
-                        // TODO - add vote DELETE action
-                        onVoteDelete={() => console.log()}
+                        onVoteDelete={() => onDeleteVote(comment.id)}
                     />
                 </div>
             </div>
@@ -92,15 +93,15 @@ const Comment = ({
                     </button>
                 )}
 
-                {((loggedUserId === comment.authorId && !comment.deletedAt) ||
-                    showModActions) && (
-                    <button
-                        className="btn-secondary py-1"
-                        onClick={() => onDelete(comment.id)}
-                    >
-                        Delete
-                    </button>
-                )}
+                {(loggedUserId === comment.authorId || showModActions) &&
+                    !comment.deletedAt && (
+                        <button
+                            className="btn-secondary py-1"
+                            onClick={() => onDelete(comment.id)}
+                        >
+                            Delete
+                        </button>
+                    )}
 
                 {comment.children?.map(child => (
                     <Comment
@@ -108,6 +109,7 @@ const Comment = ({
                         parent={comment}
                         onSaveComment={onSaveComment}
                         onDelete={onDelete}
+                        onDeleteVote={onDeleteVote}
                         loggedUserId={loggedUserId}
                         showModActions={showModActions}
                         onVote={onVote}
@@ -120,4 +122,9 @@ const Comment = ({
     );
 };
 
-export default memo(Comment);
+export default memo(
+    Comment,
+    (prevProps, nextProps) =>
+        prevProps.comment.id === nextProps.comment.id &&
+        prevProps.comment.children.length === prevProps.comment.children.length,
+);

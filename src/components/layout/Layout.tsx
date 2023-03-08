@@ -5,23 +5,27 @@ import styles from './layout.module.css';
 import Navbar from './Navbar';
 import pinnedSubeddits from 'src/utils/data/pinned-subeddits.json';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+
+const DynamicToggle = dynamic(() => Promise.resolve(Toggle), { ssr: false });
 
 type LayoutProps = {
     children: React.ReactNode;
 };
 
+const initThemeState = () => {
+    if (typeof window !== 'undefined')
+        return (localStorage?.getItem('theme') as ThemeOption) || 'light';
+    else return 'light';
+};
+
 const Layout = ({ children }: LayoutProps) => {
-    const [theme, setTheme] = useState<ThemeOption>();
+    const [theme, setTheme] = useState<ThemeOption>(initThemeState);
 
     const toggleTheme = () => {
         const newTheme = theme === 'dark' ? 'light' : 'dark';
         setTheme(newTheme);
     };
-
-    useEffect(() => {
-        // @ts-ignore
-        setTheme(localStorage.getItem('theme'));
-    }, []);
 
     useEffect(() => {
         if (theme) {
@@ -44,8 +48,8 @@ const Layout = ({ children }: LayoutProps) => {
                 ))}
             </div>
             <main className={styles.container}>
-                <div className="absolute right-4 top-4">
-                    <Toggle value={theme} onChange={toggleTheme} />
+                <div className="absolute right-4 top-10">
+                    <DynamicToggle value={theme} onChange={toggleTheme} />
                 </div>
                 <div className="mb-12">
                     <Navbar />

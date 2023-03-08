@@ -2,9 +2,10 @@ import debounce from 'lodash.debounce';
 import { useCallback, useState, useRef, memo } from 'react';
 
 interface AutocompleteProps {
-    options: string[];
-    onChange: (input: string) => void;
-    onSelect: (option: string) => void;
+    options?: string[];
+    onChange?: (input: string) => void;
+    onSelect?: (option: string) => void;
+    onSubmit?: (value: string) => void;
     isLoading?: boolean;
     startIcon?: JSX.Element;
     [key: string]: any;
@@ -14,6 +15,7 @@ const Autocomplete = ({
     options,
     onChange,
     onSelect,
+    onSubmit,
     isLoading,
     startIcon,
     ...props
@@ -23,7 +25,7 @@ const Autocomplete = ({
 
     const debouncedInput = useCallback(
         debounce((e: React.ChangeEvent<HTMLInputElement>) => {
-            if (e.target.value) {
+            if (e.target.value && onChange) {
                 onChange(e.target.value);
             }
         }, 300),
@@ -32,8 +34,10 @@ const Autocomplete = ({
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const option = options.find(option => option === input);
-        if (option) {
+        if (onSubmit) onSubmit(input);
+
+        const option = options && options.find(option => option === input);
+        if (onSelect && option) {
             onSelect(option);
         }
     };
@@ -111,7 +115,7 @@ const Autocomplete = ({
                             onClick={() => {
                                 setFocused(false);
                                 setInput(option);
-                                onSelect(option);
+                                if (onSelect) onSelect(option);
                             }}
                         >
                             {option}

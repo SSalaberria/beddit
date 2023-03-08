@@ -3,9 +3,10 @@ import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
 import Voting from 'src/components/common/Voting';
-import { usePostVoteMutation } from 'src/hooks/usePosts';
+import { usePostMutations, usePostVoteMutation } from 'src/hooks/usePosts';
 import { CONTENT_TYPES } from 'src/utils/consts';
 import { VoteOption } from 'src/utils/ts/types';
 import Comment from '../../../../components/comments/Comment';
@@ -15,6 +16,8 @@ import { formatDate } from '../../../../utils/date';
 import {
     createComment,
     deleteComment,
+    deleteCommentVote,
+    deletePost,
     fetchPost,
     voteComment,
 } from '../../../../utils/requests';
@@ -48,7 +51,11 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
 const PostDetails = ({ post }: { post: Post }) => {
     const { data: session } = useSession();
+    const router = useRouter();
     const { voteMutation, deleteVoteMutation } = usePostVoteMutation({
+        subeddit: post.subeddit.name,
+    });
+    const { deletePostMutation } = usePostMutations({
         subeddit: post.subeddit.name,
     });
     const [vote, setVote] = useState<VoteOption | null>(
@@ -68,15 +75,6 @@ const PostDetails = ({ post }: { post: Post }) => {
         [session],
     );
 
-    const handleCommentSave = (formData: {
-        content: string;
-        depth: number;
-        parentId?: string;
-    }) =>
-        createComment({ ...formData, postId: post.id }).then(() =>
-            window.location.reload(),
-        );
-
     const handleCommentVote = useCallback(
         (payload: { commentId: string; voteType: VoteOption }) =>
             voteComment({ ...payload, postId: post.id }).then(() =>
@@ -90,6 +88,14 @@ const PostDetails = ({ post }: { post: Post }) => {
             deleteComment({ commentId, postId: post.id }).then(() =>
                 window.location.reload(),
             ),
+        [],
+    );
+
+    const handleDeletePost = useCallback(
+        () =>
+            deletePostMutation
+                .mutateAsync({ postId: post.id })
+                .then(() => router.push(`/b/${post.subeddit.name}`)),
         [],
     );
 
@@ -110,7 +116,19 @@ const PostDetails = ({ post }: { post: Post }) => {
         }
     }, [vote, votes]);
 
-    const handleCommentSubmit = useCallback(handleCommentSave, [post]);
+    const handleDeleteCommentVote = useCallback((commentId: string) => {
+        deleteCommentVote({ commentId, postId: post.id }).then(() =>
+            window.location.reload(),
+        );
+    }, []);
+
+    const handleCommentSubmit = useCallback(
+        (formData: { content: string; depth: number; parentId?: string }) =>
+            createComment({ ...formData, postId: post.id }).then(() =>
+                window.location.reload(),
+            ),
+        [post],
+    );
 
     return (
         <Layout>
@@ -208,9 +226,24 @@ const PostDetails = ({ post }: { post: Post }) => {
                         <p className="">{post.content}</p>
                     </div>
                 )}
+                {(post.authorId === session?.user.id ||
+                    post.subeddit.moderators?.find(
+                        mod => mod.id === session?.user.id,
+                    )) && (
+                    <div>
+                        <button
+                            className="btn-secondary"
+                            onClick={handleDeletePost}
+                        >
+                            Delete post
+                        </button>
+                    </div>
+                )}
+
                 <div className="flex flex-col">
                     <p className="text-[1.5rem]">Comments</p>
                 </div>
+
                 <div>
                     {session && (
                         <CommentForm
@@ -226,6 +259,7 @@ const PostDetails = ({ post }: { post: Post }) => {
                             comment={comment}
                             onSaveComment={handleCommentSubmit}
                             onVote={handleCommentVote}
+                            onDeleteVote={handleDeleteCommentVote}
                             onDelete={handleCommentDelete}
                             showModActions={showModActions}
                             loggedUserId={session?.user.id}

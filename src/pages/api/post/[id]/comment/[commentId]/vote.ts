@@ -73,7 +73,7 @@ const handlePOST = async (
     return res.status(200).json(vote);
 };
 
-// DELETE /api/post/[id]/vote
+// DELETE /api/post/{id}/comment/{commentId}/vote
 const handleDELETE = async (
     req: NextApiRequest,
     res: NextApiResponse,

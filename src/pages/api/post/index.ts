@@ -6,6 +6,7 @@ import { prisma } from '../../../server/db/client';
 import type { ContentType, Post } from '@prisma/client';
 import { CONTENT_TYPES } from 'src/utils/consts';
 import { uploadImage } from 'src/utils/file';
+import { Prisma } from '@prisma/client';
 
 export default async function handler(
     req: NextApiRequest,
@@ -103,20 +104,34 @@ interface GetRequest {
     page?: number;
     perPage?: number;
     subeddit?: string;
+    query?: string;
 }
 async function handleGET(
     req: NextApiRequest,
     res: NextApiResponse,
     session: Session | null,
 ) {
-    const { page, perPage, subeddit }: GetRequest = req.query;
+    const { page, perPage, subeddit, query }: GetRequest = req.query;
+
+    const whereQuery: Prisma.PostWhereInput = {
+        subeddit: {
+            name: subeddit,
+        },
+    };
+
+    if (query) {
+        whereQuery.OR = [
+            {
+                title: {
+                    contains: query,
+                },
+            },
+            { content: { contains: query } },
+        ];
+    }
 
     const posts = await prisma.post.findMany({
-        where: {
-            subeddit: {
-                name: subeddit,
-            },
-        },
+        where: whereQuery,
         include: {
             author: {
                 select: {

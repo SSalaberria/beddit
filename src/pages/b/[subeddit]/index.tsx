@@ -1,16 +1,18 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { ContentType } from 'src/utils/ts/types';
 import AddPostModal from '../../../components/posts/AddPostModal';
 import Layout from '../../../components/layout/Layout';
 import PostsFeed from '../../../components/posts/PostsFeed';
-import { useAddPostMutation } from '../../../hooks/usePosts';
 import { fetchSubedditData, fetchSubeddits } from '../../../utils/requests';
 import { useAddModeratorMutation, useSubeddit } from 'src/hooks/useSubeddit';
 import { dehydrate, QueryClient } from 'react-query';
 import { useSession } from 'next-auth/react';
 import AddModeratorInput from 'src/components/subeddits/AddModeratorInput';
+import { usePostMutations } from 'src/hooks/usePosts';
+import Autocomplete from 'src/components/common/Autocomplete';
+import { SearchIcon } from '@heroicons/react/outline';
 
 type PageParams = {
     subeddit?: string;
@@ -63,11 +65,13 @@ type Props = {
 const SubedditPage = ({ name }: Props) => {
     const { data: subeddit } = useSubeddit({ name });
     const { data: loggedUserData } = useSession();
-    const addPostMutation = useAddPostMutation({
-        subeddit: name,
-    });
     const addModeratorMutation = useAddModeratorMutation({ name });
     const [showAddPostModal, setShowAddPostModal] = useState(false);
+    const [searchQuery, setSearchQuery] = useState<string | null>(null);
+    const { addPostMutation } = usePostMutations({
+        subeddit: name,
+        query: searchQuery,
+    });
 
     const handleSubmitPost = useCallback(
         async (data: {
@@ -102,6 +106,10 @@ const SubedditPage = ({ name }: Props) => {
         [subeddit?.moderators, addModeratorMutation.isSuccess],
     );
 
+    useEffect(() => {
+        if (searchQuery) setSearchQuery(null);
+    }, [subeddit?.id]);
+
     return (
         <Layout>
             <Head>
@@ -131,6 +139,17 @@ const SubedditPage = ({ name }: Props) => {
                             .
                         </p>
                     )}
+                    <div className="w-full max-w-[3rem] focus-within:max-w-full hover:max-w-full transition-all duration-200 pt-2">
+                        <Autocomplete
+                            options={[]}
+                            onSubmit={value => setSearchQuery(value)}
+                            placeholder="Search for posts..."
+                            autoComplete="off"
+                            startIcon={
+                                <SearchIcon className="h-6 w-6 text-gray-400" />
+                            }
+                        />
+                    </div>
                     {Boolean(loggedUserData?.user) &&
                         loggedUserData?.user.id === subeddit?.owner?.id && (
                             <div className="max-w-[3rem] focus-within:max-w-[16rem] hover:max-w-[16rem] transition-all duration-200 pt-2">
@@ -141,17 +160,19 @@ const SubedditPage = ({ name }: Props) => {
                         )}
                 </div>
 
-                <button
-                    className="btn-primary"
-                    onClick={() => setShowAddPostModal(true)}
-                    data-bs-toggle="modal"
-                    data-bs-target="#addPostModal"
-                >
-                    Create Post
-                </button>
+                {!searchQuery && (
+                    <button
+                        className="btn-primary"
+                        onClick={() => setShowAddPostModal(true)}
+                        data-bs-toggle="modal"
+                        data-bs-target="#addPostModal"
+                    >
+                        Create Post
+                    </button>
+                )}
             </div>
             <div className="grid grid-cols-1 gap-3 mt-3 pt-3 w-full lg:w-2/3 md:w-full mx-auto">
-                <PostsFeed subeddit={subeddit?.name} />
+                <PostsFeed subeddit={subeddit?.name} query={searchQuery} />
             </div>
             {showAddPostModal && (
                 <AddPostModal
