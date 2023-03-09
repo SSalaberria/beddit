@@ -23,4 +23,4 @@ This is an app bootstrapped by `npx create-t3-app@latest` according to the [init
 
 ✔️ Different types of post: text, video, image.
 
-❌ Moderating system
+✔️ Moderating system
