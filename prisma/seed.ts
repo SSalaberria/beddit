@@ -16,17 +16,6 @@ async function main() {
     });
 
     seedData.subeddits.forEach(async subeddit => {
-        const subedditData = {
-            ...subeddit,
-            posts: {
-                create: subeddit.posts.map(post => ({
-                    ...post,
-                    authorId:
-                        users[Math.floor(Math.random() * users.length)]?.id,
-                })),
-            },
-        };
-
         try {
             await prisma.subeddit.create({
                 data: {
