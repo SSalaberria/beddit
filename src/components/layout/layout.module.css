@@ -10,4 +10,6 @@
     padding: 2rem 1rem;
     margin: 0rem auto;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
