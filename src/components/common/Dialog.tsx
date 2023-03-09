@@ -10,10 +10,10 @@ const Dialog = ({ children, title, onClose }: Props) => (
         onClick={onClose}
     >
         <div
-            className="relative p-4 w-full max-w-xl h-full md:h-auto mx-auto z-10 fadeIn transition-all translate-y-[10%]"
+            className="relative sm:p-4 w-full max-w-xl h-full md:h-auto mx-auto z-10 fadeIn transition-all translate-y-[10%]"
             onClick={e => e.stopPropagation()}
         >
-            <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <div className="relative h-full sm:h-auto bg-white rounded-lg shadow dark:bg-gray-700">
                 <div className="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
                     <h3 className="text-xl text-center font-semibold text-gray-900 dark:text-white">
                         {title}

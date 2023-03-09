@@ -38,6 +38,7 @@ const Post = memo(
                             height={190}
                             src={post.content.replace('/watch?v=', '/embed/')}
                             allowFullScreen
+                            className="w-32 h-32 sm:w-60 sm:h-fit"
                             frameBorder="0"
                         ></iframe>
                     )}

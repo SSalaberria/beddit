@@ -91,7 +91,7 @@ const RegisterDialog = ({ onClose }: RegisterDialogProps) => {
                         )}
                     </div>
 
-                    <div className="flex w-full gap-6">
+                    <div className="flex flex-col-reverse sm:flex-row w-full gap-6">
                         <button
                             className="btn-secondary w-full"
                             disabled={isLoading}
