@@ -117,11 +117,7 @@ const SubedditPage = ({ name }: Props) => {
             </Head>
             <div className="flex flex-col justify-center items-center gap-4">
                 <h2 className="flex text-[1.5rem] lg:text-[4rem] md:text-[5rem] font-extrabold flex-wrap justify-center">
-                    <span className="hidden sm:block">
-                        Bed<span className="text-purple-300">dit</span>
-                    </span>
-
-                    <span className="text-gray-600">/{subeddit?.name}</span>
+                    <span className="text-purple-300">/{subeddit?.name}</span>
                 </h2>
 
                 <h3 className="font-semibold">{subeddit?.description}</h3>

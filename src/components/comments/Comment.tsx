@@ -5,6 +5,7 @@ import { UserCircleIcon } from '@heroicons/react/outline';
 import { formatDate } from '../../utils/date';
 import Voting from '../common/Voting';
 import { VoteOption } from 'src/utils/ts/types';
+import Link from 'next/link';
 
 interface Props {
     comment: Comment;
@@ -44,7 +45,11 @@ const Comment = ({
             <div className="flex items-center gap-2">
                 <UserCircleIcon className="h-8" />
                 <div>
-                    <p>{comment?.author?.name}</p>
+                    <p>
+                        <Link href={`/u/${comment.author.name}`}>
+                            <a rel="noreferrer">{comment.author.name}</a>
+                        </Link>
+                    </p>
                     <p className="text-sm">
                         {formatDate(comment.createdAt, {
                             dateStyle: 'long',

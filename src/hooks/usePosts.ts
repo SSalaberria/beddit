@@ -15,6 +15,7 @@ interface PostsParams {
     perPage?: number;
     subeddit?: string;
     query?: string | null;
+    username?: string;
 }
 
 interface PostsResponse {

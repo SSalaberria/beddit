@@ -27,9 +27,10 @@ const Home: NextPage = ({}) => {
                 <title>Beddit: the homepage of the internet</title>
             </Head>
             <div className="flex flex-col justify-center items-center">
-                <h2 className="text-[3rem] lg:text-[5rem] md:text-[5rem] font-extrabold text">
+                <h2 className="text-[3rem] lg:text-[5rem] md:text-[5rem] font-extrabold">
                     Bed<span className="text-purple-300">dit</span>
                 </h2>
+
                 <button
                     className="btn-primary"
                     onClick={() => setShowCreateBedditModal(true)}

@@ -1,12 +1,13 @@
 import { useSession, signIn } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useCallback, useRef, memo } from 'react';
+import { useCallback, useRef, memo, useMemo } from 'react';
 import { CONTENT_TYPES } from 'src/utils/consts';
 import { Post } from 'src/utils/ts/interfaces';
 import { VoteOption } from 'src/utils/ts/types';
 import { usePosts, usePostVoteMutation } from '../../hooks/usePosts';
 import { formatDate } from '../../utils/date';
+import Logo from '../common/Logo';
 import Voting from '../common/Voting';
 
 interface PostProps {
@@ -54,11 +55,7 @@ const Post = memo(
 
                     {post.contentType === CONTENT_TYPES.TEXT && (
                         <div className="w-20">
-                            <img
-                                width={60}
-                                height={60}
-                                src="/images/bd-logo.svg"
-                            />
+                            <Logo width={60} height={60} />
                         </div>
                     )}
 
@@ -108,7 +105,10 @@ const Post = memo(
 
                 <div className="flex flex-col absolute bottom-2 right-6 w-full">
                     <p className="text-sm text-right ml-auto self-end">
-                        Made by {post.author.name}
+                        Made by{' '}
+                        <Link href={`/u/${post.author.name}`}>
+                            <a rel="noreferrer">{post.author.name}</a>
+                        </Link>
                         <br />
                         {formatDate(post.createdAt, {
                             dateStyle: 'long',
@@ -127,17 +127,16 @@ const Post = memo(
 type Props = {
     subeddit?: string;
     query?: string | null;
+    username?: string;
 };
 
-const PostsFeed = ({ subeddit, query }: Props) => {
-    const { data, fetchNextPage, isFetching, hasNextPage } = usePosts({
-        subeddit,
-        query,
-    });
-    const { voteMutation, deleteVoteMutation } = usePostVoteMutation({
-        subeddit,
-        query,
-    });
+const PostsFeed = ({ subeddit, query, username }: Props) => {
+    const params = useMemo(
+        () => ({ subeddit, query, username }),
+        [subeddit, query, username],
+    );
+    const { data, fetchNextPage, isFetching, hasNextPage } = usePosts(params);
+    const { voteMutation, deleteVoteMutation } = usePostVoteMutation(params);
     const { status } = useSession();
     const observer = useRef<IntersectionObserver>();
 

@@ -1,8 +1,8 @@
 import { signIn, useSession, signOut } from 'next-auth/react';
-import Image from 'next/image';
 import Link from 'next/link';
 import RegisterDialog from '../common/RegisterDialog';
 import { useState } from 'react';
+import Logo from '../common/Logo';
 
 const Navbar = () => {
     const { data: session } = useSession();
@@ -14,11 +14,7 @@ const Navbar = () => {
                 <div className="flex">
                     <Link href="/">
                         <a className="flex items-center">
-                            <Image
-                                src="/images/bd-logo.svg"
-                                width={32}
-                                height={32}
-                            />
+                            <Logo width={32} height={32} />
                         </a>
                     </Link>
                 </div>

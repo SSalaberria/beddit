@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
+import Logo from 'src/components/common/Logo';
 import Voting from 'src/components/common/Voting';
 import { usePostMutations, usePostVoteMutation } from 'src/hooks/usePosts';
 import { CONTENT_TYPES } from 'src/utils/consts';
@@ -157,21 +158,17 @@ const PostDetails = ({ post }: { post: Post }) => {
                                 : 'w-64 h-64'
                         }`}
                     >
-                        {(post.contentType === CONTENT_TYPES.TEXT ||
-                            post.contentType === CONTENT_TYPES.IMAGE) && (
+                        {post.contentType === CONTENT_TYPES.IMAGE && (
                             <Image
-                                src={
-                                    post.contentType === CONTENT_TYPES.IMAGE
-                                        ? post.content
-                                        : '/images/bd-logo.svg'
-                                }
+                                src={post.content}
                                 width={256}
                                 height={256}
-                                {...(post.contentType ===
-                                    CONTENT_TYPES.IMAGE && {
-                                    objectFit: 'scale-down',
-                                })}
+                                objectFit="scale-down"
                             />
+                        )}
+
+                        {post.contentType === CONTENT_TYPES.TEXT && (
+                            <Logo width={256} height={256} />
                         )}
 
                         {post.contentType === CONTENT_TYPES.VIDEO && (
@@ -193,7 +190,10 @@ const PostDetails = ({ post }: { post: Post }) => {
                         </h2>
                         <div>
                             <p className="">
-                                {post.author.name} -{' '}
+                                <Link href={`/u/${post.author.name}`}>
+                                    <a rel="noreferrer">{post.author.name}</a>
+                                </Link>{' '}
+                                -{' '}
                                 {formatDate(post.createdAt, {
                                     dateStyle: 'long',
                                     timeStyle: 'short',

@@ -75,6 +75,7 @@ const Layout = ({ children }: LayoutProps) => {
                                     style={{
                                         animationDelay: `${0.3 + index / 10}s`,
                                     }}
+                                    key={index}
                                 >
                                     {char}
                                 </span>
@@ -84,7 +85,7 @@ const Layout = ({ children }: LayoutProps) => {
                 )}
             </main>
             {status !== 'loading' && (
-                <footer className="flex justify-center h-60 ">
+                <footer className="flex justify-center h-60 mt-60">
                     Made with ❤️ by Sebastián Salaberría
                 </footer>
             )}

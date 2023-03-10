@@ -105,13 +105,14 @@ interface GetRequest {
     perPage?: number;
     subeddit?: string;
     query?: string;
+    username?: string;
 }
 async function handleGET(
     req: NextApiRequest,
     res: NextApiResponse,
     session: Session | null,
 ) {
-    const { page, perPage, subeddit, query }: GetRequest = req.query;
+    const { page, perPage, subeddit, query, username }: GetRequest = req.query;
 
     const whereQuery: Prisma.PostWhereInput = {
         subeddit: {
@@ -128,6 +129,12 @@ async function handleGET(
             },
             { content: { contains: query } },
         ];
+    }
+
+    if (username) {
+        whereQuery.author = {
+            name: username,
+        };
     }
 
     const posts = await prisma.post.findMany({

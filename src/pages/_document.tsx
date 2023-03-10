@@ -23,7 +23,7 @@ export default function Document() {
                 />
                 <link
                     rel="shortcut icon"
-                    href="/images/bd-logo.svg"
+                    href="/images/bd-logo-dark.svg"
                     type="image/svg+xml"
                 />
             </Head>
